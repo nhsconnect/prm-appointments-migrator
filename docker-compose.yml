@@ -1,4 +1,4 @@
-version: "3"
+version: "3.7"
 services:
   gpconnect-db:
     image: mariadb
@@ -10,7 +10,11 @@ services:
       - MYSQL_PASSWORD=gpc0nn3ct
       - MYSQL_DATABASE=gpconnect
   gpconnect-api:
-    image: gpconnect # rename to whatever you tagged the GP Connect build is
+    build:
+      target: runtime
+      context: .
+      dockerfile: Dockerfile-api
+    command: java -jar /app/app.war
     ports:
       - 9000:19191
       - 9001:19192

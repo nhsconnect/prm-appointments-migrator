@@ -1,4 +1,4 @@
-USE gpconnect1;
+USE gpconnect;
 
 /* Destroy all existing data */
 DROP TABLE IF EXISTS appointment_slots_organizations;
