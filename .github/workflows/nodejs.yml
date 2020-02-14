@@ -25,13 +25,7 @@ jobs:
     - name: GitHub Pages
       uses: crazy-max/ghaction-github-pages@v1.2.5
       with:
-        # Build directory to deploy
         build_dir: ./migration-portal/build
-        # Commit author's name
-        # committer_name: # optional
-        # Commit author's email
-        # committer_email: # optional
-        # Commit message
         commit_message: 'Deploy to GitHub Pages'
 
       env:
