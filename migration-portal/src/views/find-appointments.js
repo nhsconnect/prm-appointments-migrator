@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import Cards from '../cards';
-import { getAppointment } from './service/find-appointments';
+import Cards from '../components/cards';
+import { findAppointments } from '../services/find-appointments';
 import { Link } from 'react-router-dom';
-import { publicPath } from '../env';
+import { publicPath } from '../config/env';
 
 export default () => {
     const [appointments, setAppointments] = useState([]);
 
     const getSlotService = async () => {
-        const response = await getAppointment();
+        const response = await findAppointments();
         setAppointments(response);
     };
 
@@ -20,7 +20,7 @@ export default () => {
         <div className="mb4">
             <p class="mb2">Found {appointments.length} appointments in current solution between <b>today</b> and <b>13/04/2020</b>.
             </p>
-            <Link className="nhsuk-link-override" to={`/${publicPath}/new`}>
+            <Link className="nhsuk-link-override" to={`/${publicPath}/booked`}>
                 <button className="nhsuk-button">
                     Transfer all appointments
             </button>

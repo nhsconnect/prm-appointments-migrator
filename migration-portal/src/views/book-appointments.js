@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Cards from '../cards';
-import { bookAppointments } from './service/book-appointments';
-import { splitSuccessFail } from './transformers/migrator';
+import Cards from '../components/cards';
+import { bookAppointments } from '../services/book-appointments';
+import { splitSuccessFail } from '../services/transformers/migrator';
 
 export default () => {
     const [appointmentsSuccess, setAppointmentsSuccess] = useState([]);
@@ -9,7 +9,8 @@ export default () => {
 
     const getSlotService = async () => {
         const response = await bookAppointments();
-        const { success, fail } = splitSuccessFail(response);
+        const success = response.filter(item => item.success);
+        const fail = response.filter(item => !item.success);
         
         setAppointmentsSuccess(success);
         setAppointmentsFail(fail);

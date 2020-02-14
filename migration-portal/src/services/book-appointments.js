@@ -1,19 +1,32 @@
+import { api, domainOptions } from '../config/features';
+import { commonHeaders, domain } from './common';
 import { buildRequest } from './jwt';
-import {commonHeaders, domain} from './common';
+import { gpconnectTransformer } from './transformers/gpconnect';
+import { migratorTransformer } from './transformers/migrator';
+import { mockBookAppointments } from './mock/appointments';
+import { superfetch } from './superfetch';
 
-export const bookAppointment = ({
+export const bookAppointments = async () => {
+    const map = {
+        [domainOptions.gpconnect]: bookAppointmentsGPConnect,
+        [domainOptions.none]: bookAppointmentsMigrator
+    };
+    return await map[api()]();
+};
+
+export const bookAppointmentsGPConnect = async ({
     start,
     end,
     slotId,
     patientId,
     locationId
 } = {
-    start: '2020-02-13T09:40:00+00:00',
-    end: '2020-02-13T09:50:00+00:00',
-    slotId: '115',
-    patientId: '2',
-    locationId: '17'
-}) => {
+        start: '2020-02-13T09:40:00+00:00',
+        end: '2020-02-13T09:50:00+00:00',
+        slotId: '115',
+        patientId: '2',
+        locationId: '17'
+    }) => {
 
     const body = {
         "resourceType": "Appointment",
@@ -90,16 +103,10 @@ export const bookAppointment = ({
 
     const url = new URL(`${domain}/Appointment`);
 
-    const res = await fetch(url, {
-        headers,
-        method: 'POST',
-        body
-    }).catch(error => {
-        const { response } = error;
-        return response || { data: error };
-    });
+    const response = await superfetch({ url, body, headers, method: 'POST' });
+    return gpconnectTransformer(response);
+};
 
-    const success = await res.json();
-    console.log('make appointment', success);
-    return success;
-}
+export const bookAppointmentsMigrator = () => {
+    return migratorTransformer(mockBookAppointments);
+};
