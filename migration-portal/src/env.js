@@ -1,4 +1,4 @@
-export const publicPath = 'prm-migration-portal';
+export const publicPath = 'gpconnect-demonstrator';
 export const gpconnect = 'http://localhost:9000';
 export const mock = '/';
 export const endpoints = {
