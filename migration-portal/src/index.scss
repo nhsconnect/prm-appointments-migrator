@@ -1,0 +1,27 @@
+@import "~nhsuk-frontend/packages/nhsuk";
+
+.nhsuk-header__navigation-list--tight {
+    justify-content: left;
+}
+
+.nhsuk-u-align-right {
+    margin: auto 0 auto auto;
+    display: block;
+}
+
+a.nhsuk-link-override:hover {
+    box-shadow: 0 0 0 0px
+}
+
+a.nhsuk-link-override {
+    text-decoration: none;
+}
+
+body {
+    font-family: inherit;
+}
+
+hr {
+    border-bottom: 4px solid #005eb8;
+    margin-bottom: 1rem;
+}

@@ -1,0 +1,14 @@
+{
+  "standard": "WCAG2AAA",
+  "level": "warning",
+  "defaults": {
+    "timeout": 1000,
+    "threshold": 1,
+    "chromeLaunchConfig": {
+      "args": ["--no-sandbox"]
+    }
+  },
+  "urls": [
+    "https://www.google.com"
+  ]
+}
