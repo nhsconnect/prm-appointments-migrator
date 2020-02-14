@@ -37,7 +37,7 @@ export const getAppointmentGPConnect = async () => {
 };
 
 export const getAppointmentMigrator = async () => {
-    const url = `/mock/find-appointments.json`;
+    const url = `${window.location.pathname}mock/find-appointments.json`;
     
     const response = await fetch(url, {
         method: 'GET'
