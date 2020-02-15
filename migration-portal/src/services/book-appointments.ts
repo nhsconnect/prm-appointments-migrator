@@ -28,7 +28,7 @@ export const bookAppointmentsGPConnect = async ({
         locationId: '17'
     }) => {
 
-    const body = {
+    const body = JSON.stringify({
         "resourceType": "Appointment",
         "meta": {
             "profile": [
@@ -91,7 +91,7 @@ export const bookAppointmentsGPConnect = async ({
                 }
             }
         ]
-    };
+    });
 
     const interactionId = 'urn:nhs:names:services:gpconnect:fhir:rest:create:appointment-1';
 
@@ -101,7 +101,7 @@ export const bookAppointmentsGPConnect = async ({
         'Authorization': `Bearer ${buildRequest()}`
     };
 
-    const url = new URL(`${domain}/Appointment`);
+    const url = `${domain}/Appointment`;
 
     const response = await superfetch({ url, body, headers, method: 'POST' });
     return gpconnectTransformer(response);

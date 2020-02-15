@@ -4,6 +4,7 @@ import {BrowserRouter} from 'react-router-dom';
 import App from './views/App';
 import * as serviceWorker from './config/serviceWorker';
 import './index.scss';
+import 'basscss/css/basscss.min.css';
 
 ReactDOM.render(
   <BrowserRouter>

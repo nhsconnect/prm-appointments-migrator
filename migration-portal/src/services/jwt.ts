@@ -1,4 +1,3 @@
-import cryptojs from 'crypto-js';
 import base64url from 'base64url';
 
 export const buildRequest = () => {
