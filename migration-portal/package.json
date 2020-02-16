@@ -1,6 +1,6 @@
 {
   "name": "migration-portal",
-  "homepage": "/gpconnect-demonstrator",
+  "homepage": "/prm-appointments-migrator",
   "version": "0.2.0",
   "dependencies": {
     "base64url": "^3.0.1",
