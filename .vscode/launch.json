@@ -14,51 +14,19 @@
         {
             "type": "node",
             "request": "attach",
-            "name": "Apollo",
-            "port": 9222,
-            "restart": true,
-            "localRoot": "${workspaceFolder}/apollo",
-            "remoteRoot": "/apollo",
-            "address": "localhost",
-            "outFiles": [
-                "${workspaceFolder}/apollo/build/**/*.js"
-            ],
-            "cwd": "${workspaceFolder}/apollo",
-            "skipFiles": [
-                "<node_internals>/**/*.js",
-            ]
-        },
-        {
-            "type": "node",
-            "request": "attach",
-            "name": "Stubs",
+            "name": "Migrator attach",
             "port": 9223,
             "restart": true,
-            "localRoot": "${workspaceFolder}/stubs",
-            "remoteRoot": "/stubs",
+            "localRoot": "${workspaceFolder}/migrator",
+            "remoteRoot": "/app",
             "address": "localhost",
             "outFiles": [
-                "${workspaceFolder}/stubs/build/**/*.js"
+                "${workspaceFolder}/migrator/build/**/*.js"
             ],
-            "cwd": "${workspaceFolder}/stubs",
+            "cwd": "${workspaceFolder}/migrator",
             "skipFiles": [
                 "<node_internals>/**/*.js",
             ]
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Apollo launch via NPM",
-            "runtimeExecutable": "npm",
-            "cwd": "${workspaceRoot}/services/apollo",
-            "outFiles": [
-                "${workspaceFolder}/services/apollo/build/**/*.js"
-            ],
-            "runtimeArgs": [
-                "run",
-                "debug"
-            ],
-            "port": 9229
         },
         {
             "name": "Chrome",
@@ -71,8 +39,8 @@
             "name": "Debug Jest Tests UI",
             "type": "node",
             "request": "launch",
-            "runtimeExecutable": "${workspaceRoot}/payment-client/node_modules/.bin/react-scripts",
-            "cwd": "${workspaceFolder}/payment-client",
+            "runtimeExecutable": "${workspaceRoot}/migration-portal/node_modules/.bin/react-scripts",
+            "cwd": "${workspaceFolder}/migration-portal",
             "args": [
                 "test",
                 "--runInBand",
@@ -84,36 +52,16 @@
             "internalConsoleOptions": "neverOpen"
         },
         {
-            "name": "Debug Jest Tests Apollo",
+            "name": "Debug Jest Tests Node",
             "type": "node",
             "request": "launch",
-            "cwd": "${workspaceRoot}/apollo",
+            "cwd": "${workspaceRoot}/migrator",
             "outFiles": [
-                "${workspaceFolder}/apollo/build/**/*.js"
+                "${workspaceFolder}/migrator/build/**/*.js"
             ],
             "runtimeArgs": [
                 "--inspect-brk",
-                "${workspaceRoot}/apollo/node_modules/.bin/jest",
-                "--watch",
-                "--runInBand",
-                "--testPathIgnorePatterns",
-                "src/**/*.contract.test.ts"
-            ],
-            "port": 9229,
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen"
-        },
-        {
-            "name": "Debug Jest Tests Stubs",
-            "type": "node",
-            "request": "launch",
-            "cwd": "${workspaceRoot}/stubs",
-            "outFiles": [
-                "${workspaceFolder}/stubs/build/**/*.js"
-            ],
-            "runtimeArgs": [
-                "--inspect-brk",
-                "${workspaceRoot}/stubs/node_modules/.bin/jest",
+                "${workspaceRoot}/migrator/node_modules/.bin/jest",
                 "--watch",
                 "--runInBand"
             ],
@@ -125,27 +73,17 @@
             "name": "vscode-jest-tests",
             "type": "node",
             "request": "launch",
-            "cwd": "${workspaceFolder}/payment-client",
+            "cwd": "${workspaceFolder}/migration-portal",
             // "outFiles": [
             //   "${workspaceFolder}/services/apollo/build/**/*.js"
             // ],
             "runtimeArgs": [
                 "--inspect-brk",
-                "${workspaceFolder}/payment-client/node_modules/jest/bin/jest.js"
+                "${workspaceFolder}/migration-portal/node_modules/jest/bin/jest.js"
             ],
             "port": 9229,
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
-        },
-        {
-            "type": "java",
-            "name": "Spring Boot-PaymentApplication<payment>",
-            "request": "launch",
-            "cwd": "${workspaceFolder}",
-            "console": "internalConsole",
-            "mainClass": "com.worldfirst.platform.payment.PaymentApplication",
-            "projectName": "payment",
-            "args": ""
         }
     ]
 }
