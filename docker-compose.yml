@@ -1,37 +1,81 @@
 version: "3.7"
 services:
-  gpconnect-db:
+  gpconnect-db1:
     image: mariadb
-    networks: 
+    networks:
       - gpconnect-network
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_USER=gpconnectdbuser
       - MYSQL_PASSWORD=gpc0nn3ct
       - MYSQL_DATABASE=gpconnect
-  gpconnect-api:
+  gpconnect-api1:
     build:
       target: runtime
-      context: .
+      context: ./demonstrator
       dockerfile: Dockerfile-api
     command: java -jar /app/app.war
-    ports:
-      - 9000:19191
-      - 9001:19192
-    networks: 
+    networks:
       - gpconnect-network
     environment:
-      - DATABASE_ADDRESS=gpconnect-db
+      - DATABASE_ADDRESS=gpconnect-db1
       - DATABASE_USERNAME=gpconnectdbuser
       - DATABASE_PASSWORD=gpc0nn3ct
       - DATABASE_SCHEMA=gpconnect
       - SERVER_BASE_URL=https://data.developer.nhs.uk/gpconnect-demonstrator/v1/fhir
       - CONTEXT_PATH=/gpconnect-demonstrator/v1/
     links:
-      - gpconnect-db
+      - gpconnect-db1
     depends_on:
-      - gpconnect-db
-
-networks: 
+      - gpconnect-db1
+  migrator:
+    build:
+      target: base_with_packages
+      context: ./migrator
+      dockerfile: Dockerfile
+    command: npm start
+    ports:
+      - 4010:4010
+    networks:
+      - gpconnect-network
+    environment:
+      - demonstrator1=gpconnect-api1
+      - demonstrator2=gpconnect-api2
+      - demonstratorport=19191
+    links:
+      - gpconnect-api1
+    depends_on:
+      - gpconnect-api1
+    volumes:
+      - ./migrator/:/app:delegated
+  gpconnect-api2:
+    build:
+      target: runtime
+      context: ./demonstrator
+      dockerfile: Dockerfile-api
+    command: java -jar /app/app.war
+    networks:
+      - gpconnect-network
+    environment:
+      - DATABASE_ADDRESS=gpconnect-db2
+      - DATABASE_USERNAME=gpconnectdbuser
+      - DATABASE_PASSWORD=gpc0nn3ct
+      - DATABASE_SCHEMA=gpconnect
+      - SERVER_BASE_URL=https://data.developer.nhs.uk/gpconnect-demonstrator/v1/fhir
+      - CONTEXT_PATH=/gpconnect-demonstrator/v1/
+    links:
+      - gpconnect-db2
+    depends_on:
+      - gpconnect-db2
+  gpconnect-db2:
+    image: mariadb
+    networks:
+      - gpconnect-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=gpconnectdbuser
+      - MYSQL_PASSWORD=gpc0nn3ct
+      - MYSQL_DATABASE=gpconnect
+networks:
   gpconnect-network:
     driver: bridge

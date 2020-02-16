@@ -3,9 +3,12 @@ WORKDIR /app
 COPY ./ .
 RUN mvn verify clean package
 
-FROM openjdk:alpine AS runtime
+FROM openjdk:alpine AS distro
 WORKDIR /app
+COPY ./ .
 
+FROM distro AS runtime
+WORKDIR /app
 COPY ./config ./config
 COPY --from=api-build /app/gpconnect-demonstrator-api/target/gpconnect-demonstrator-api.war ./app.war
 EXPOSE 19191

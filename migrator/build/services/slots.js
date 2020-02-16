@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
 const jwt_1 = require("../jwt");
-exports.getSlots = async () => {
+exports.getSlots = async ({ domain, port }) => {
     const payload = {
         headers: {
             'accept': 'application/fhir+json',
@@ -16,14 +16,14 @@ exports.getSlots = async () => {
             'Authorization': `Bearer ${jwt_1.buildRequest()}`
         },
         params: {
-            start: 'ge2020-02-12',
-            end: 'le2020-02-13',
+            start: 'ge2020-02-17',
+            end: 'le2020-02-20',
             status: 'free',
             _include: 'Slot:schedule',
             searchFilter: 'https://fhir.nhs.uk/STU3/CodeSystem/GPConnect-OrganisationType-1|gp-practice'
         }
     };
-    const url = 'http://localhost:9000/gpconnect-demonstrator/v1/fhir/Slot';
+    const url = `http://${domain}:${port}/gpconnect-demonstrator/v1/fhir/Slot`;
     const res = await axios_1.default.get(url, payload).catch((error) => {
         const { response } = error;
         return response || { data: error };

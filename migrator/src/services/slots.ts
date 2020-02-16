@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosError } from 'axios';
 import { buildRequest } from '../jwt';
 
-export const getSlots = async () => {
+export const getSlots = async ({ domain, port }: { domain: string, port: string }) => {
     const payload: AxiosRequestConfig = {
         headers: {
             'accept': 'application/fhir+json',
@@ -12,15 +12,15 @@ export const getSlots = async () => {
             'Authorization': `Bearer ${buildRequest()}`
         },
         params: {
-            start: 'ge2020-02-12',
-            end: 'le2020-02-13',
+            start: 'ge2020-02-17',
+            end: 'le2020-02-20',
             status: 'free',
             _include: 'Slot:schedule',
             searchFilter: 'https://fhir.nhs.uk/STU3/CodeSystem/GPConnect-OrganisationType-1|gp-practice'
         }
     };
 
-    const url = 'http://localhost:9000/gpconnect-demonstrator/v1/fhir/Slot';
+    const url = `http://${domain}:${port}/gpconnect-demonstrator/v1/fhir/Slot`;
     const res = await axios.get(url, payload).catch((error: AxiosError) => {
         const { response } = error;
         return response || { data: error };
