@@ -37,3 +37,6 @@ node_modules
 context-gpconnect.xml
 /bin/
 /gpconnect-demonstrator-api/src/main/resources/application.properties
+
+# Stupid OSX #
+.DS_Store
