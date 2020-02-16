@@ -10,6 +10,9 @@
 .settings
 .springBeans
 
+# VSCode #
+.vscode
+
 # NetBeans #
 nb-configuration.xml
 nbactions.xml

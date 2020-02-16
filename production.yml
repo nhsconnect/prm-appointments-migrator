@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  gpconnect-db1:
+    restart: always
+  gpconnect-api1:
+    restart: always
+  migrator:
+    command: node build/index.js
+    restart: always
+  gpconnect-api2:
+    restart: always
+  gpconnect-db2:
+    restart: always
