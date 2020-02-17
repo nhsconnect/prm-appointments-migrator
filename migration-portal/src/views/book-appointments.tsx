@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Cards from '../components/cards';
 import { bookAppointments } from '../services/book-appointments';
+import { marginBottom } from '../styles/global';
 
 export default () => {
     const [appointmentsSuccess, setAppointmentsSuccess] = useState([]);
@@ -20,12 +21,12 @@ export default () => {
     }, []);
 
     return (
-        <div className="mb4">
-            <h2 className="mb2">Failed transfers</h2>
-            <div className="mb2">{appointmentsFail.length} transfers failed.</div>
+        <div className={marginBottom.large}>
+            <h2 className={marginBottom.regular}>Failed transfers</h2>
+            <div className={marginBottom.regular}>{appointmentsFail.length} transfers failed.</div>
             <Cards items={ appointmentsFail } icon={ true } success={false} />
-            <h2 className="mb2">Successful transfers</h2>
-            <div className="mb2">{appointmentsSuccess.length} transfers successful.</div>
+            <h2 className={marginBottom.regular}>Successful transfers</h2>
+            <div className={marginBottom.regular}>{appointmentsSuccess.length} transfers successful.</div>
             <Cards items={ appointmentsSuccess } icon={ true } />
         </div>
     );

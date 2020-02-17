@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import Cards from '../components/cards';
-import { findAppointments } from '../services/find-appointments';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { publicPath } from '../config/env';
+import { marginBottom, linkOverride } from '../styles/global';
+import { findAppointments } from '../services/find-appointments';
+import Cards from '../components/cards';
 
-export default () => {
+export default ({ setNumberAppts }) => {
     const [appointments, setAppointments] = useState([]);
 
     const getSlotService = async () => {
         const response = await findAppointments();
         setAppointments(response);
+        setNumberAppts(response.length);
     };
 
     useEffect(() => {
@@ -17,10 +19,10 @@ export default () => {
     }, []);
 
     return (
-        <div className="mb4">
-            <p className="mb2">Found {appointments.length} appointments in current solution between <b>today</b> and <b>13/04/2020</b>.
+        <div className={marginBottom.large}>
+            <p className={marginBottom.regular}>Found {appointments.length} in current solution between <b>today</b> and <b>13/04/2020</b>.
             </p>
-            <Link className="nhsuk-link-override" to={`/${publicPath}/booked`}>
+            <Link className={linkOverride} to={`/${publicPath}/transferring`}>
                 <button className="nhsuk-button">
                     Transfer all appointments
             </button>
