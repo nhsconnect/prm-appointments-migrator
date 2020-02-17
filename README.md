@@ -1,6 +1,6 @@
 <img src="logo.png" height=72>
 
-# GP Connect Demonstrator
+# Appointments Migrator
 
 This README contains information related to developing, building and running the GP Connect Demonstrator.
 
