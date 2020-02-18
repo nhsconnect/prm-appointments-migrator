@@ -11,7 +11,7 @@ export default () => {
         const response = await bookAppointments();
         const success = response.filter(item => item.success);
         const fail = response.filter(item => !item.success);
-        
+
         setAppointmentsSuccess(success);
         setAppointmentsFail(fail);
     };
@@ -24,10 +24,10 @@ export default () => {
         <div className={marginBottom.large}>
             <h2 className={marginBottom.regular}>Failed transfers</h2>
             <div className={marginBottom.regular}>{appointmentsFail.length} transfers failed.</div>
-            <Cards items={ appointmentsFail } icon={ true } success={false} />
+            <Cards items={appointmentsFail} icon={true} success={false} />
             <h2 className={marginBottom.regular}>Successful transfers</h2>
             <div className={marginBottom.regular}>{appointmentsSuccess.length} transfers successful.</div>
-            <Cards items={ appointmentsSuccess } icon={ true } />
+            <Cards items={appointmentsSuccess} icon={true} />
         </div>
     );
 };

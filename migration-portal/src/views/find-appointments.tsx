@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { publicPath } from '../config/env';
-import { marginBottom, linkOverride } from '../styles/global';
-import { findAppointments } from '../services/find-appointments';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Cards from '../components/cards';
+import { findAppointments } from '../services/find-appointments';
+import { linkOverride, marginBottom } from '../styles/global';
+import { pendingStates } from './content';
 
-export default ({ setNumberAppts }) => {
+interface findAppointments {
+    setNumberAppts: Dispatch<SetStateAction<string>>,
+    startTransferring: Dispatch<SetStateAction<string>>,
+}
+
+export default ({ setNumberAppts, startTransferring }: findAppointments) => {
     const [appointments, setAppointments] = useState([]);
 
     const getSlotService = async () => {
@@ -22,11 +26,11 @@ export default ({ setNumberAppts }) => {
         <div className={marginBottom.large}>
             <p className={marginBottom.regular}>Found {appointments.length} in current solution between <b>today</b> and <b>13/04/2020</b>.
             </p>
-            <Link className={linkOverride} to={`/${publicPath}/transferring`}>
+            <a className={linkOverride} onClick={() => startTransferring(pendingStates.transferring)}>
                 <button className="nhsuk-button">
                     Transfer all appointments
-            </button>
-            </Link>
+                </button>
+            </a>
             <Cards items={appointments} />
         </div>
     );

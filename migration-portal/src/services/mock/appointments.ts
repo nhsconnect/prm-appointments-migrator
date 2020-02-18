@@ -64,7 +64,7 @@ export const mockFindAppointments =  [
 export const mockBookAppointments = [
     {
         "success": false,
-        "errorMessage": "",
+        "errorMessage": "Could not find corresponding slot",
         "description": "A appointment to discuss test data.",
         "start": "2020-02-13T09:00:00+00:00",
         "end": "2020-02-13T09:10:00+00:00",
@@ -76,7 +76,7 @@ export const mockBookAppointments = [
     },
     {
         "success": false,
-        "errorMessage": "",
+        "errorMessage": "Could not find corresponding slot",
         "description": "A follow-up appointment for tests.",
         "start": "2020-02-13T09:00:00+00:00",
         "end": "2020-02-13T09:10:00+00:00",
