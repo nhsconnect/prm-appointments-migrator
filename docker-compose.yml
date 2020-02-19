@@ -30,13 +30,12 @@ services:
       - gpconnect-db1
   migrator:
     build:
-      target: base_with_packages
-      context: ./migrator
+      target: runtime
+      context: ./app-migrator
       dockerfile: Dockerfile
-    command: npm start
+    command: dotnet Api.dll
     ports:
-      - 4010:4010
-      - 9223:9223
+      - 5001:80
     networks:
       - gpconnect-network
     environment:
@@ -49,7 +48,7 @@ services:
     depends_on:
       - gpconnect-api1
     volumes:
-      - ./migrator/:/app:delegated
+      - ./app-migrator/:/app:delegated
   gpconnect-api2:
     build:
       target: runtime
