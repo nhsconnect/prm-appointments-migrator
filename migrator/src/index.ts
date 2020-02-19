@@ -1,6 +1,7 @@
 import express from 'express';
-import { buildRequest } from './jwt';
+import { buildRequest } from './services/jwt';
 import { getSlots } from './services/slots';
+import { findAppointments } from './services/find-appointments';
 
 export const app = express();
 app.use((req, res, next) => {
@@ -32,6 +33,11 @@ app.get('/slots2', async (req, res) => {
   const domain = process.env.demonstrator2 as string;
   const port = process.env.demonstratorport as string;
   const response = await getSlots({ domain, port});
+  res.send(response);
+});
+
+app.get('/appointments', async (req, res) => {
+  const response = await findAppointments();
   res.send(response);
 });
 

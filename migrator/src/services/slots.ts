@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosError } from 'axios';
-import { buildRequest } from '../jwt';
+import { buildRequest } from './jwt';
 
 export const getSlots = async ({ domain, port }: { domain: string, port: string }) => {
     const payload: AxiosRequestConfig = {

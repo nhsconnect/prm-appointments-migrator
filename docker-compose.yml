@@ -43,6 +43,7 @@ services:
       - demonstrator1=gpconnect-api1
       - demonstrator2=gpconnect-api2
       - demonstratorport=19191
+      - VERSION=0.1.0
     links:
       - gpconnect-api1
     depends_on:

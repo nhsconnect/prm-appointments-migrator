@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
-const jwt_1 = require("../jwt");
+const jwt_1 = require("./jwt");
 exports.getSlots = async ({ domain, port }) => {
     const payload = {
         headers: {

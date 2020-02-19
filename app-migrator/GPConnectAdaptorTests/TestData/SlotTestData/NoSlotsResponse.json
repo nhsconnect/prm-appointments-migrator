@@ -1,0 +1,17 @@
+{
+  "resourceType": "Bundle",
+  "id": "48997d96-23f3-497f-a0eb-c8229ea66c4f",
+  "meta": {
+    "lastUpdated": "2020-02-17T16:13:01.222+00:00",
+    "profile": [
+      "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Searchset-Bundle-1"
+    ]
+  },
+  "type": "searchset",
+  "link": [
+    {
+      "relation": "self",
+      "url": "https://orange.testlab.nhs.uk/gpconnect-demonstrator/v1/fhir/Slot?_include=Slot%3Aschedule&end=le2019-02-02&searchFilter=https%3A%2F%2Ffhir.nhs.uk%2FSTU3%2FCodeSystem%2FGPConnect-OrganisationType-1%7Cgp-practice&start=ge2019-02-01&status=free"
+    }
+  ]
+}

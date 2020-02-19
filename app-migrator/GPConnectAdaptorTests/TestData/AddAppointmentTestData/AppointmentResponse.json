@@ -1,0 +1,91 @@
+{
+  "resourceType": "Appointment",
+  "id": "3",
+  "meta": {
+    "versionId": "1580982448000",
+    "lastUpdated": "2020-02-06T09:47:28.000+00:00",
+    "profile": [
+      "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Appointment-1"
+    ]
+  },
+  "contained": [
+    {
+      "resourceType": "Organization",
+      "id": "1",
+      "meta": {
+        "profile": [
+          "https://fhir.nhs.uk/STU3/StructureDefinition/CareConnect-GPC-Organization-1"
+        ]
+      },
+      "identifier": [
+        {
+          "system": "https://fhir.nhs.uk/Id/ods-organization-code",
+          "value": "GPC001"
+        }
+      ],
+      "name": "GP Connect Demonstrator",
+      "telecom": [
+        {
+          "system": "phone",
+          "value": "0113 258 2569"
+        }
+      ]
+    }
+  ],
+  "extension": [
+    {
+      "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+      "valueCode": "In-person"
+    },
+    {
+      "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-PractitionerRole-1",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "https://fhir.nhs.uk/STU3/ValueSet/GPConnect-PractitionerRole-1",
+            "code": "R0260",
+            "display": "General Medical Practitioner"
+          }
+        ]
+      }
+    },
+    {
+      "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-BookingOrganisation-1",
+      "valueReference": {
+        "reference": "#1"
+      }
+    }
+  ],
+  "status": "booked",
+  "priority": 0,
+  "description": "A test appointment booked through Interactive Swagger API",
+  "start": "2020-02-07T10:40:00+00:00",
+  "end": "2020-02-07T10:50:00+00:00",
+  "minutesDuration": 10,
+  "slot": [
+    {
+      "reference": "Slot/211224"
+    }
+  ],
+  "created": "2018-11-14T14:31:55+00:00",
+  "participant": [
+    {
+      "actor": {
+        "reference": "Patient/2"
+      },
+      "status": "accepted"
+    },
+    {
+      "actor": {
+        "reference": "Location/16"
+      },
+      "status": "accepted"
+    },
+    {
+      "actor": {
+        "reference": "Practitioner/1"
+      },
+      "status": "accepted"
+    }
+  ]
+}

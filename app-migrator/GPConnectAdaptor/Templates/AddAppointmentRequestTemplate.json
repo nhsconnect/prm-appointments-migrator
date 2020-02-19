@@ -1,0 +1,47 @@
+{
+  "resourceType": "Appointment",
+  "meta": {
+    "profile": [
+      "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Appointment-1"
+    ]
+  },
+  "contained": [
+    {
+      "resourceType": "Organization",
+      "id": "1",
+      "meta": {
+        "profile": [
+          "https://fhir.nhs.uk/STU3/StructureDefinition/CareConnect-GPC-Organization-1"
+        ]
+      },
+      "identifier": [
+        {
+          "system": "https://fhir.nhs.uk/Id/ods-organization-code",
+          "value": "GPC001"
+        }
+      ],
+      "name": "GP Connect Demonstrator",
+      "telecom": [
+        {
+          "system": "phone",
+          "value": "0113 258 2569"
+        }
+      ]
+    }
+  ],
+  "status": "booked",
+  "created": "2018-11-14T14:31:55+00:00",
+  "description": "A test appointment booked through Interactive Swagger API",
+  "start": "2018-11-16T10:00:00+00:00",
+  "end": "2018-11-16T10:10:00+00:00",
+  "slot": [],
+  "participant": [],
+  "extension": [
+    {
+      "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-BookingOrganisation-1",
+      "valueReference": {
+        "reference": "#1"
+      }
+    }
+  ]
+}

@@ -1,0 +1,3178 @@
+{
+  "resourceType": "Bundle",
+  "id": "e763c3dc-3394-40cb-a824-4b2b069ab982",
+  "meta": {
+    "lastUpdated": "2020-02-06T23:58:43.794+00:00",
+    "profile": [
+      "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Searchset-Bundle-1"
+    ]
+  },
+  "type": "searchset",
+  "link": [
+    {
+      "relation": "self",
+      "url": "https://orange.testlab.nhs.uk/gpconnect-demonstrator/v1/fhir/Slot?_include=Slot%3Aschedule&end=le2020-02-08&searchFilter=https%3A%2F%2Ffhir.nhs.uk%2FSTU3%2FCodeSystem%2FGPConnect-OrganisationType-1%7Cgp-practice&start=ge2020-02-07&status=free"
+    }
+  ],
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Organization",
+        "id": "7",
+        "meta": {
+          "versionId": "1469444400000",
+          "lastUpdated": "2016-07-25T12:00:00.000+01:00",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/CareConnect-GPC-Organization-1"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "https://fhir.nhs.uk/Id/ods-organization-code",
+            "value": "A20047"
+          }
+        ],
+        "name": "Dr Legg's Surgery",
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "12345678",
+            "use": "work"
+          }
+        ],
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "NHS NPFIT Test Data Manager",
+              "Princes Exchange"
+            ],
+            "city": "Leeds",
+            "district": "West Yorkshire",
+            "postalCode": "LS1 4HY"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211251",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T15:10:00+00:00",
+        "end": "2020-02-07T15:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Schedule",
+        "id": "1",
+        "meta": {
+          "versionId": "1469444400000",
+          "lastUpdated": "2016-07-25T12:00:00.000+01:00",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Schedule-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-PractitionerRole-1",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://fhir.nhs.uk/STU3/ValueSet/GPConnect-PractitionerRole-1",
+                  "code": "R0260",
+                  "display": "General Medical Practitioner"
+                }
+              ]
+            }
+          }
+        ],
+        "actor": [
+          {
+            "reference": "Practitioner/1"
+          },
+          {
+            "reference": "Location/16"
+          }
+        ],
+        "planningHorizon": {
+          "start": "2016-03-22T10:00:00+00:00",
+          "end": "2030-12-22T17:59:59+00:00"
+        },
+        "comment": "Schedule 1 for general appointments"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211258",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T16:20:00+00:00",
+        "end": "2020-02-07T16:30:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211228",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T11:20:00+00:00",
+        "end": "2020-02-07T11:30:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211242",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T13:40:00+00:00",
+        "end": "2020-02-07T13:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211225",
+        "meta": {
+          "versionId": "1581004768000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T10:50:00+00:00",
+        "end": "2020-02-07T11:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211256",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T16:00:00+00:00",
+        "end": "2020-02-07T16:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211229",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T11:30:00+00:00",
+        "end": "2020-02-07T11:40:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211249",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T14:50:00+00:00",
+        "end": "2020-02-07T15:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211250",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T15:00:00+00:00",
+        "end": "2020-02-07T15:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211230",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T11:40:00+00:00",
+        "end": "2020-02-07T11:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211235",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T12:30:00+00:00",
+        "end": "2020-02-07T12:40:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211218",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T09:40:00+00:00",
+        "end": "2020-02-07T09:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211220",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T10:00:00+00:00",
+        "end": "2020-02-07T10:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211238",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T13:00:00+00:00",
+        "end": "2020-02-07T13:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211255",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T15:50:00+00:00",
+        "end": "2020-02-07T16:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211253",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T15:30:00+00:00",
+        "end": "2020-02-07T15:40:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211227",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T11:10:00+00:00",
+        "end": "2020-02-07T11:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211233",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T12:10:00+00:00",
+        "end": "2020-02-07T12:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211247",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T14:30:00+00:00",
+        "end": "2020-02-07T14:40:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211244",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T14:00:00+00:00",
+        "end": "2020-02-07T14:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211254",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T15:40:00+00:00",
+        "end": "2020-02-07T15:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211261",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T16:50:00+00:00",
+        "end": "2020-02-07T17:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211232",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T12:00:00+00:00",
+        "end": "2020-02-07T12:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211239",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T13:10:00+00:00",
+        "end": "2020-02-07T13:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211226",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T11:00:00+00:00",
+        "end": "2020-02-07T11:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211260",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T16:40:00+00:00",
+        "end": "2020-02-07T16:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211259",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T16:30:00+00:00",
+        "end": "2020-02-07T16:40:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211240",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T13:20:00+00:00",
+        "end": "2020-02-07T13:30:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211257",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T16:10:00+00:00",
+        "end": "2020-02-07T16:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211245",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T14:10:00+00:00",
+        "end": "2020-02-07T14:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211243",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T13:50:00+00:00",
+        "end": "2020-02-07T14:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211221",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T10:10:00+00:00",
+        "end": "2020-02-07T10:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211223",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T10:30:00+00:00",
+        "end": "2020-02-07T10:40:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211248",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T14:40:00+00:00",
+        "end": "2020-02-07T14:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211234",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T12:20:00+00:00",
+        "end": "2020-02-07T12:30:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211252",
+        "meta": {
+          "versionId": "1580950866000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/1"
+        },
+        "status": "free",
+        "start": "2020-02-07T15:20:00+00:00",
+        "end": "2020-02-07T15:30:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211677",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T14:10:00+00:00",
+        "end": "2020-02-07T14:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Schedule",
+        "id": "12",
+        "meta": {
+          "versionId": "1469444400000",
+          "lastUpdated": "2016-07-25T12:00:00.000+01:00",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Schedule-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-PractitionerRole-1",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://fhir.nhs.uk/STU3/ValueSet/GPConnect-PractitionerRole-1",
+                  "code": "R0620",
+                  "display": "Staff Nurse"
+                }
+              ]
+            }
+          }
+        ],
+        "actor": [
+          {
+            "reference": "Practitioner/1"
+          },
+          {
+            "reference": "Location/16"
+          }
+        ],
+        "planningHorizon": {
+          "start": "2010-10-22T01:01:01+01:00",
+          "end": "2040-12-22T10:46:22+00:00"
+        },
+        "comment": "Schedule 12 for phone appointments with staff nurse"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211658",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T11:00:00+00:00",
+        "end": "2020-02-07T11:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211668",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T12:40:00+00:00",
+        "end": "2020-02-07T12:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211655",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T10:30:00+00:00",
+        "end": "2020-02-07T10:40:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211680",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T14:40:00+00:00",
+        "end": "2020-02-07T14:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211687",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T15:50:00+00:00",
+        "end": "2020-02-07T16:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211665",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T12:10:00+00:00",
+        "end": "2020-02-07T12:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211671",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T13:10:00+00:00",
+        "end": "2020-02-07T13:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211682",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T15:00:00+00:00",
+        "end": "2020-02-07T15:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211669",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T12:50:00+00:00",
+        "end": "2020-02-07T13:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211684",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T15:20:00+00:00",
+        "end": "2020-02-07T15:30:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211661",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T11:30:00+00:00",
+        "end": "2020-02-07T11:40:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211686",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T15:40:00+00:00",
+        "end": "2020-02-07T15:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211674",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T13:40:00+00:00",
+        "end": "2020-02-07T13:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211662",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T11:40:00+00:00",
+        "end": "2020-02-07T11:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211660",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T11:20:00+00:00",
+        "end": "2020-02-07T11:30:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211663",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T11:50:00+00:00",
+        "end": "2020-02-07T12:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211670",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T13:00:00+00:00",
+        "end": "2020-02-07T13:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211685",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T15:30:00+00:00",
+        "end": "2020-02-07T15:40:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211656",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T10:40:00+00:00",
+        "end": "2020-02-07T10:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211689",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T16:10:00+00:00",
+        "end": "2020-02-07T16:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211681",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T14:50:00+00:00",
+        "end": "2020-02-07T15:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211652",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T10:00:00+00:00",
+        "end": "2020-02-07T10:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211653",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T10:10:00+00:00",
+        "end": "2020-02-07T10:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211651",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T09:50:00+00:00",
+        "end": "2020-02-07T10:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211664",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T12:00:00+00:00",
+        "end": "2020-02-07T12:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211679",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T14:30:00+00:00",
+        "end": "2020-02-07T14:40:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211683",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T15:10:00+00:00",
+        "end": "2020-02-07T15:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211654",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T10:20:00+00:00",
+        "end": "2020-02-07T10:30:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211657",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T10:50:00+00:00",
+        "end": "2020-02-07T11:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211676",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T14:00:00+00:00",
+        "end": "2020-02-07T14:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211659",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T11:10:00+00:00",
+        "end": "2020-02-07T11:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211673",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T13:30:00+00:00",
+        "end": "2020-02-07T13:40:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211690",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T16:20:00+00:00",
+        "end": "2020-02-07T16:30:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211678",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T14:20:00+00:00",
+        "end": "2020-02-07T14:30:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211693",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T16:50:00+00:00",
+        "end": "2020-02-07T17:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211691",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T16:30:00+00:00",
+        "end": "2020-02-07T16:40:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211692",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T16:40:00+00:00",
+        "end": "2020-02-07T16:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211666",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T12:20:00+00:00",
+        "end": "2020-02-07T12:30:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211688",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T16:00:00+00:00",
+        "end": "2020-02-07T16:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211650",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T09:40:00+00:00",
+        "end": "2020-02-07T09:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211675",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T13:50:00+00:00",
+        "end": "2020-02-07T14:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211667",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T12:30:00+00:00",
+        "end": "2020-02-07T12:40:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "211672",
+        "meta": {
+          "versionId": "1580950867000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/12"
+        },
+        "status": "free",
+        "start": "2020-02-07T13:20:00+00:00",
+        "end": "2020-02-07T13:30:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210930",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T10:40:00+00:00",
+        "end": "2020-02-07T10:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Schedule",
+        "id": "2",
+        "meta": {
+          "versionId": "1469444400000",
+          "lastUpdated": "2016-07-25T12:00:00.000+01:00",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Schedule-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-PractitionerRole-1",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://fhir.nhs.uk/STU3/ValueSet/GPConnect-PractitionerRole-1",
+                  "code": "R1480",
+                  "display": "Healthcare Assistant"
+                }
+              ]
+            }
+          }
+        ],
+        "actor": [
+          {
+            "reference": "Practitioner/2"
+          },
+          {
+            "reference": "Location/17"
+          }
+        ],
+        "planningHorizon": {
+          "start": "2016-06-24T09:00:00+01:00",
+          "end": "2034-06-22T09:00:00+01:00"
+        },
+        "comment": "Schedule 2 for general appointments"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210946",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T13:20:00+00:00",
+        "end": "2020-02-07T13:30:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210947",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T13:30:00+00:00",
+        "end": "2020-02-07T13:40:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210956",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T15:00:00+00:00",
+        "end": "2020-02-07T15:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210927",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T10:10:00+00:00",
+        "end": "2020-02-07T10:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210929",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T10:30:00+00:00",
+        "end": "2020-02-07T10:40:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210955",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T14:50:00+00:00",
+        "end": "2020-02-07T15:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210937",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T11:50:00+00:00",
+        "end": "2020-02-07T12:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210942",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T12:40:00+00:00",
+        "end": "2020-02-07T12:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210963",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T16:10:00+00:00",
+        "end": "2020-02-07T16:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210941",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T12:30:00+00:00",
+        "end": "2020-02-07T12:40:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210965",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T16:30:00+00:00",
+        "end": "2020-02-07T16:40:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210972",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "In-person"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T17:40:00+00:00",
+        "end": "2020-02-07T17:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210928",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T10:20:00+00:00",
+        "end": "2020-02-07T10:30:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210931",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T10:50:00+00:00",
+        "end": "2020-02-07T11:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210934",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T11:20:00+00:00",
+        "end": "2020-02-07T11:30:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210924",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T09:40:00+00:00",
+        "end": "2020-02-07T09:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210935",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T11:30:00+00:00",
+        "end": "2020-02-07T11:40:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210939",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T12:10:00+00:00",
+        "end": "2020-02-07T12:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210960",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T15:40:00+00:00",
+        "end": "2020-02-07T15:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210954",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T14:40:00+00:00",
+        "end": "2020-02-07T14:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210926",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T10:00:00+00:00",
+        "end": "2020-02-07T10:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210940",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T12:20:00+00:00",
+        "end": "2020-02-07T12:30:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210925",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T09:50:00+00:00",
+        "end": "2020-02-07T10:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210933",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T11:10:00+00:00",
+        "end": "2020-02-07T11:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210952",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T14:20:00+00:00",
+        "end": "2020-02-07T14:30:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210938",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T12:00:00+00:00",
+        "end": "2020-02-07T12:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210932",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T11:00:00+00:00",
+        "end": "2020-02-07T11:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210948",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T13:40:00+00:00",
+        "end": "2020-02-07T13:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210950",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T14:00:00+00:00",
+        "end": "2020-02-07T14:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210957",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T15:10:00+00:00",
+        "end": "2020-02-07T15:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210962",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T16:00:00+00:00",
+        "end": "2020-02-07T16:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210964",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T16:20:00+00:00",
+        "end": "2020-02-07T16:30:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210943",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T12:50:00+00:00",
+        "end": "2020-02-07T13:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210959",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T15:30:00+00:00",
+        "end": "2020-02-07T15:40:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210949",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T13:50:00+00:00",
+        "end": "2020-02-07T14:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210951",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T14:10:00+00:00",
+        "end": "2020-02-07T14:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210958",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T15:20:00+00:00",
+        "end": "2020-02-07T15:30:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210961",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T15:50:00+00:00",
+        "end": "2020-02-07T16:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210953",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T14:30:00+00:00",
+        "end": "2020-02-07T14:40:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210966",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T16:40:00+00:00",
+        "end": "2020-02-07T16:50:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210967",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Video"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T16:50:00+00:00",
+        "end": "2020-02-07T17:00:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210944",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T13:00:00+00:00",
+        "end": "2020-02-07T13:10:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210945",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T13:10:00+00:00",
+        "end": "2020-02-07T13:20:00+00:00"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Slot",
+        "id": "210936",
+        "meta": {
+          "versionId": "1580950865000",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Slot-1"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/2"
+        },
+        "status": "free",
+        "start": "2020-02-07T11:40:00+00:00",
+        "end": "2020-02-07T11:50:00+00:00"
+      }
+    }
+  ]
+}

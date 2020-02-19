@@ -5,7 +5,6 @@ export const migratorTransformer = (payload) => {
             end: new Date(end).toLocaleString().split(',')[1],
             ...rest
         };
-
     });
 };
 

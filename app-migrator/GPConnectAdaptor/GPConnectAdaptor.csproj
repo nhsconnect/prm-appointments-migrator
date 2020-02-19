@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Flurl.Http" Version="2.4.2" />
+      <PackageReference Include="Hl7.Fhir.STU3" Version="1.5.0-beta1" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="GPConnectAdaptor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Api\bin\Debug\netcoreapp3.1\GPConnectAdaptor.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.Extensions.Http, Version=3.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+        <HintPath>..\..\..\..\..\usr\local\share\dotnet\packs\Microsoft.AspNetCore.App.Ref\3.1.0\ref\netcoreapp3.1\Microsoft.Extensions.Http.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=3.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+        <HintPath>..\..\..\..\..\usr\local\share\dotnet\packs\Microsoft.AspNetCore.App.Ref\3.1.0\ref\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Templates\AddAppointmentRequestTemplate.json" />
+      <EmbeddedResource Include="Templates\AddAppointmentRequestTemplate.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Models\Slot\Coding.cs" />
+      <Compile Remove="Models\Slot\Entry.cs" />
+      <Compile Remove="Models\Slot\Extension.cs" />
+      <Compile Remove="Models\Slot\Identifier.cs" />
+      <Compile Remove="Models\Slot\Link.cs" />
+      <Compile Remove="Models\Slot\Meta.cs" />
+      <Compile Remove="Models\Slot\Name.cs" />
+      <Compile Remove="Models\Slot\PlanningHorizon.cs" />
+      <Compile Remove="Models\Slot\Resource.cs" />
+      <Compile Remove="Models\Slot\Schedule.cs" />
+      <Compile Remove="Models\Slot\ValueCodeableConcept.cs" />
+    </ItemGroup>
+
+</Project>

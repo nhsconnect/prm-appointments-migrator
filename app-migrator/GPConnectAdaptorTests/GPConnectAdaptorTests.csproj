@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FluentAssertions" Version="5.10.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+        <PackageReference Include="NSubstitute" Version="4.2.1" />
+        <PackageReference Include="xunit" Version="2.4.0" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+        <PackageReference Include="coverlet.collector" Version="1.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\GPConnectAdaptor\GPConnectAdaptor.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="TestJwtToken.json" />
+      <EmbeddedResource Include="TestData\AddAppointmentTestData\TestAddAppointmentRequest.json" />
+      <EmbeddedResource Include="TestData\SlotTestData\NoSlotsResponse.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <EmbeddedResource Include="TestData\SlotTestData\TestSlotResponse.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <EmbeddedResource Include="TestData\SlotTestData\TestSlotResponse2.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <EmbeddedResource Include="TestData\SlotTestData\TestSlotResponse3.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <EmbeddedResource Include="TestData\TestJwtToken.json" />
+      <None Remove="TestSlotResponse.json" />
+      <None Remove="TestData\TestAddAppointmentRequest.json" />
+      <None Remove="TestData\AddAppointment\AppointmentResponse.json" />
+      <EmbeddedResource Include="TestData\AddAppointmentTestData\AppointmentResponse.json" />
+      <None Remove="TestData\AddAppointment\FailedAppointmentResponse.json" />
+      <EmbeddedResource Include="TestData\AddAppointmentTestData\FailedAppointmentResponse.json" />
+      <None Remove="TestData\TestSlotResponse2.json" />
+      <None Remove="TestData\TestSlotResponse3.json" />
+      <None Remove="TestData\NoSlotsResponse.json" />
+    </ItemGroup>
+
+</Project>

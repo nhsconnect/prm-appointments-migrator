@@ -4,8 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const jwt_1 = require("./jwt");
+const jwt_1 = require("./services/jwt");
 const slots_1 = require("./services/slots");
+const find_appointments_1 = require("./services/find-appointments");
 exports.app = express_1.default();
 exports.app.use((req, res, next) => {
     // console.log(req.path);
@@ -32,6 +33,10 @@ exports.app.get('/slots2', async (req, res) => {
     const domain = process.env.demonstrator2;
     const port = process.env.demonstratorport;
     const response = await slots_1.getSlots({ domain, port });
+    res.send(response);
+});
+exports.app.get('/appointments', async (req, res) => {
+    const response = await find_appointments_1.findAppointments();
     res.send(response);
 });
 exports.app.get('/health', async (req, res, next) => {
