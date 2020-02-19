@@ -20,9 +20,9 @@ export default ({ startFinding }: { startFinding: Dispatch<SetStateAction<string
 
     return (
         <Fragment>
-            <div className={marginBottom.small}>Using patient list from:</div>
+            <div className={marginBottom.small}>Using patient NHS numbers from:</div>
             <p className={border}>
-                patient.list.csv
+                patient.nhsNumbers.csv
             </p>
             <div className="nhsuk-action-link">
                 <a className={`${cursor} nhsuk-action-link__link`} onClick={() => startFinding(pendingStates.finding)}>
