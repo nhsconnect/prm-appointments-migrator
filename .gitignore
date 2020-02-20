@@ -40,3 +40,6 @@ context-gpconnect.xml
 
 # Stupid OSX #
 .DS_Store
+
+**/bin
+**/obj

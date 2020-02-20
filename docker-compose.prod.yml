@@ -32,8 +32,6 @@ services:
     build:
       context: ./app-migrator
       dockerfile: Dockerfile
-      target: build
-    command: dotnet watch --project Api run --urls=http://+:80
     ports:
       - 5001:80
     networks:
