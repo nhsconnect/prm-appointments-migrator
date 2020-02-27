@@ -9,6 +9,9 @@ setup:
     MYSQL_DATABASE: gpconnect
 build:
   docker:
+    release:
+      dockerfile: demonstrator/Dockerfile-api
+      target: runtime
     gpconnect-api1: demonstrator/Dockerfile-api
   config:
     DATABASE_ADDRESS: DATABASE_URL
