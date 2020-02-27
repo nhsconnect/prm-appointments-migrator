@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GPConnectAdaptor.Models.AddAppointment;
+using GPConnectAdaptor.Models.ReadAppointments;
 using GPConnectAdaptor.Models.Slot;
+using GPConnectAdaptor.Patient;
 
 namespace GPConnectAdaptor
 {
@@ -10,22 +13,14 @@ namespace GPConnectAdaptor
     {
         private readonly Slots.ISlotClient _slotClient;
         private readonly IAddAppointmentClient _addAppointmentClient;
+        private readonly IPatientLookup _patientLookup;
 
-        public MigrationOrchestrator(Slots.ISlotClient slotClient, IAddAppointmentClient addAppointmentClient)
+        public MigrationOrchestrator(Slots.ISlotClient slotClient, IAddAppointmentClient addAppointmentClient, IPatientLookup patientLookup)
         {
             _slotClient = slotClient;
             _addAppointmentClient = addAppointmentClient;
+            _patientLookup = patientLookup;
         }
-        
-        // /// <summary>
-        // /// Placeholder for new method
-        // /// </summary>
-        // /// <param name="request"></param>
-        // /// <returns></returns>
-        // public async Task<AddAppointmentResponse> Orchestrate(TempAddAppointmentRequest request)
-        // {
-        //     
-        // }
 
         /// <summary>
         /// Add Appointment. Also temporary.
@@ -44,7 +39,7 @@ namespace GPConnectAdaptor
             }
             catch (Exception e)
             {
-                throw new Exception("Got Slots, but failed to book appointment");
+                throw new Exception($"Got Slots, but failed to book appointment. Returned with '{e.Message}'");
             }
             
         }
@@ -71,7 +66,7 @@ namespace GPConnectAdaptor
             }
 
             var scheduleId = slot.schedule.reference.Substring(9); //actual id starts at 9th char because of weird contract
-            var locationId = GetLocaationId(slots, scheduleId);
+            var locationId = GetLocationId(slots, scheduleId);
 
             return new AddAppointmentCriteria()
             {
@@ -83,7 +78,20 @@ namespace GPConnectAdaptor
             };
         }
 
-        private static string GetLocaationId(SlotResponse slots, string scheduleId)
+        /// <summary>
+        /// temporary method to test
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<List<int>> GetFutureAppointments(List<long> nhsNumbers)
+        {
+            await _patientLookup.Initialize(nhsNumbers);
+            var patientIds = _patientLookup.GetPatientIds();
+            return patientIds.ToList();
+        }
+
+        private static string GetLocationId(SlotResponse slots, string scheduleId)
         {
             var locationId = slots.entry.Select(e => e.resource)
                 .Where(r => r.resourceType == "Schedule")

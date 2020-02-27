@@ -3,39 +3,37 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Flurl.Http.Testing;
 using GPConnectAdaptor;
+using GPConnectAdaptor.Patient;
 using GPConnectAdaptor.Slots;
 using NSubstitute;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace GPConnectAdaptorTests.Slots
+namespace GPConnectAdaptorTests.Patient
 {
-    public class SlotHttpClientWrapperTests
+    public class PatientLookupHttpClientTests
     {
         private HttpTest _httpTest;
         private readonly ITestOutputHelper _output;
-        private readonly string _expectedUri =
-            "http://test.com/Slot?start=ge2020-02-08T10%3A00%3A00%2B00%3A00&end=le2020-02-08T10%3A10%3A00%2B00%3A00&status=free&_include=Slot%3Aschedule&_include%3Arecurse=Schedule%3Aactor%3APractitioner&searchFilter=https%3A%2F%2Ffhir.nhs.uk%2FSTU3%2FCodeSystem%2FGPConnect-OrganisationType-1%7Cgp-practice";
+        private readonly string _expectedUri = "http://test.com/Patient?identifier=https%3A%2F%2Ffhir.nhs.uk%2FId%2Fnhs-number%7C9658218873";
 
-        public SlotHttpClientWrapperTests(ITestOutputHelper output)
+        public PatientLookupHttpClientTests(ITestOutputHelper output)
         {
             _httpTest = new HttpTest();
-            
-            this._output = output;
+            _output = output;
         }
+
 
         [Fact]
         public async Task GetAsync_MakesCorrectCall()
         {
             var mockTokenGenerator = Substitute.For<IJwtTokenGenerator>();
-            mockTokenGenerator.GetToken(Scope.OrgRead).Returns("token");
+            mockTokenGenerator.GetToken(Scope.PatientRead).Returns("token");
             
             _httpTest.RespondWith("abcd");
-            var start = new DateTime(2020, 02, 08, 10, 00, 00);
-            var end = new DateTime(2020, 02, 08, 10, 10, 00);
-            var sut = new SlotHttpClientWrapper(mockTokenGenerator, new DateTimeGenerator(), true); // isTest = true
+            var sut = new PatientLookupHttpClientWrapper(mockTokenGenerator, true);
 
-            var result = await sut.GetAsync(start, end);
+            var result = await sut.GetAsync(9658218873);
 
             foreach (var call in this._httpTest.CallLog)
             {
@@ -43,7 +41,11 @@ namespace GPConnectAdaptorTests.Slots
             }
 
             _httpTest.ShouldHaveCalled(_expectedUri)
+                .WithHeader("accept", "application/fhir+json")
+                .WithHeader("Ssp-From", "200000000359")
+                .WithHeader("Ssp-To", "918999198993")
                 .WithHeader("Ssp-TraceID", "09a01679-2564-0fb4-5129-aecc81ea2706")
+                .WithHeader("Ssp-InteractionID", "urn:nhs:names:services:gpconnect:fhir:rest:search:patient-1")
                 .WithOAuthBearerToken("token")
                 .Times(1);
             

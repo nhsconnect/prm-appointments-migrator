@@ -8,7 +8,7 @@ namespace GPConnectAdaptor.Slots
 {
     public class SlotHttpClientWrapper : ISlotHttpClientWrapper
     {
-        private readonly string _uri = "http://localhost:9000/";
+        private readonly string _uri;
         private readonly string _searchFilter =
             "https://fhir.nhs.uk/STU3/CodeSystem/GPConnect-OrganisationType-1|gp-practice";
         private readonly string _traceId = "09a01679-2564-0fb4-5129-aecc81ea2706";
@@ -18,14 +18,15 @@ namespace GPConnectAdaptor.Slots
         private readonly IJwtTokenGenerator _tokenGenerator;
         private readonly IDateTimeGenerator _dateTimeGenerator;
 
-        public SlotHttpClientWrapper(IJwtTokenGenerator tokenGenerator, IDateTimeGenerator dateTimeGenerator)
+        public SlotHttpClientWrapper(IJwtTokenGenerator tokenGenerator, IDateTimeGenerator dateTimeGenerator, bool isTest = false)
         {
             _tokenGenerator = tokenGenerator;
             _dateTimeGenerator = dateTimeGenerator;
+            _uri = isTest ? "http://test.com" : ServiceConfig.GetTargetDomain();
             FlurlHttp.ConfigureClient(_uri, cli =>
                 cli.Settings.HttpClientFactory = new UntrustedCertClientFactory());
         }
-        
+
         public async Task<string> GetAsync(DateTime start, DateTime end)
         {
             var client = SetHeadersAndQueryParam(start, end);
@@ -53,7 +54,7 @@ namespace GPConnectAdaptor.Slots
         private IFlurlRequest SetHeadersAndQueryParam(DateTime start, DateTime end)
         {
             return _uri
-                .AppendPathSegment("gpconnect-demonstrator/v1/fhir/Slot")
+                .AppendPathSegment("/Slot")
                 .WithHeaders(new
                 {
                     Ssp_TraceID = _traceId,
