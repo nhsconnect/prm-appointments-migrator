@@ -21,7 +21,7 @@ namespace GPConnectAdaptor
                 exp = (int)(DateTime.UtcNow.AddMinutes(5) - new DateTime(1970, 1, 1)).TotalSeconds, //Epoch time
                 iat = (int)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds,
                 reason_for_request = "directcare",
-                requested_scope = scope == Scope.OrgRead ? "organization/*.read" : "patient/*.write",
+                requested_scope = SetScope(scope),
                 requesting_device = new Models.Jwt.RequestingDevice()
                 {
                     resourceType = "Device",
@@ -89,11 +89,27 @@ namespace GPConnectAdaptor
                 }
             };
         }
+
+        private static string SetScope(Scope scope)
+        {
+            switch (scope)
+            {
+                case Scope.OrgRead:
+                    return "organization/*.read";
+                case Scope.PatientRead:
+                    return "patient/*.read";
+                case Scope.PatientWrite:
+                    return "patient/*.write";
+                default:
+                    throw new Exception("No scope set in JWT token");
+            }
+        }
     }
 
     public enum Scope
     {
-        OrgRead,
-        PatientWrite
+        PatientWrite,
+        PatientRead,
+        OrgRead
     }
 }

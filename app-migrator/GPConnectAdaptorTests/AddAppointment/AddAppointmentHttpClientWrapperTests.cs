@@ -1,24 +1,18 @@
-using System;
-using System.IO;
-using System.Reflection;
-using System.Text.Json;
 using FluentAssertions;
 using Flurl.Http.Testing;
 using GPConnectAdaptor;
-using GPConnectAdaptor.Models.AddAppointment;
-using Newtonsoft.Json;
+using GPConnectAdaptor.AddAppointment;
 using NSubstitute;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace GPConnectAdaptorTests
+namespace GPConnectAdaptorTests.AddAppointment
 {
     public class AddAppointmentHttpClientWrapperTests
     {
-        private readonly string _appointmentResponse;
         private readonly HttpTest _httpTest;
         private readonly ITestOutputHelper _output;
-        private readonly string _expectedUri = "http://localhost:9000/gpconnect-demonstrator/v1/fhir/Appointment";
+        private readonly string _expectedUri = "http://test.com/Appointment";
 
 
         public AddAppointmentHttpClientWrapperTests(ITestOutputHelper output)
@@ -35,7 +29,7 @@ namespace GPConnectAdaptorTests
             var mockRequestBody = "{\"hello\" : \"hello\"}";
             _httpTest.RespondWith("{\"aha!\" : \"aha!\"}");
 
-            var sut = new AddAppointmentHttpClientWrapper(mockTokenGenerator);
+            var sut = new AddAppointmentHttpClientWrapper(mockTokenGenerator, true);
 
             var result = await sut.PostAsync(mockRequestBody);
 

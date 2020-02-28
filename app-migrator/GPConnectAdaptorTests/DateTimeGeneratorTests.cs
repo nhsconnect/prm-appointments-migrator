@@ -17,5 +17,15 @@ namespace GPConnectAdaptorTests
 
             result.Should().Be("2020-02-07T10:00:00+00:00");
         }
+        
+        [Fact]
+        public void GenerateDate_WhenPassedWithDateOnly_ReturnsUtcString()
+        {
+            var testInput = new DateTime(2020,02,07);
+            var sut = new DateTimeGenerator();
+            var result = sut.GenerateDate(testInput);
+
+            result.Should().Be("2020-02-07");
+        }
     }
 }

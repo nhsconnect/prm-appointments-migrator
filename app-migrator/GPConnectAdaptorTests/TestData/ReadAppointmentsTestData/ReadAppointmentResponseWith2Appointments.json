@@ -1,0 +1,201 @@
+{
+  "resourceType": "Bundle",
+  "id": "e4aa1f6d-f177-44d7-ac8b-561c308f7e55",
+  "meta": {
+    "lastUpdated": "2020-02-28T15:39:46.482+00:00"
+  },
+  "type": "searchset",
+  "total": 2,
+  "link": [
+    {
+      "relation": "self",
+      "url": "https://orange.testlab.nhs.uk/gpconnect-demonstrator/v1/fhir/Patient/2/Appointment?start=ge2020-02-28&start=le2020-03-02"
+    }
+  ],
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Appointment",
+        "id": "1",
+        "meta": {
+          "versionId": "1582851667000",
+          "lastUpdated": "2020-02-28T01:01:07.000+00:00",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Appointment-1"
+          ]
+        },
+        "contained": [
+          {
+            "resourceType": "Organization",
+            "id": "1",
+            "meta": {
+              "profile": [
+                "https://fhir.nhs.uk/STU3/StructureDefinition/CareConnect-GPC-Organization-1"
+              ]
+            },
+            "identifier": [
+              {
+                "system": "https://fhir.nhs.uk/Id/ods-organization-code",
+                "value": "A20047"
+              }
+            ],
+            "name": "Dr Legg's Surgery",
+            "telecom": [
+              {
+                "system": "phone",
+                "value": "0300 303 5678"
+              }
+            ]
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          },
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-PractitionerRole-1",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://fhir.nhs.uk/STU3/ValueSet/GPConnect-PractitionerRole-1",
+                  "code": "R1480",
+                  "display": "Healthcare Assistant"
+                }
+              ]
+            }
+          },
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-BookingOrganisation-1",
+            "valueReference": {
+              "reference": "#1"
+            }
+          }
+        ],
+        "status": "booked",
+        "priority": 0,
+        "description": "A appointment to discuss test data",
+        "start": "2020-02-29T09:00:00+00:00",
+        "end": "2020-02-29T09:10:00+00:00",
+        "minutesDuration": 10,
+        "slot": [
+          {
+            "reference": "Slot/255536"
+          }
+        ],
+        "participant": [
+          {
+            "actor": {
+              "reference": "Patient/2"
+            },
+            "status": "accepted"
+          },
+          {
+            "actor": {
+              "reference": "Location/17"
+            },
+            "status": "accepted"
+          },
+          {
+            "actor": {
+              "reference": "Practitioner/2"
+            },
+            "status": "accepted"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Appointment",
+        "id": "2",
+        "meta": {
+          "versionId": "1582851667000",
+          "lastUpdated": "2020-02-28T01:01:07.000+00:00",
+          "profile": [
+            "https://fhir.nhs.uk/STU3/StructureDefinition/GPConnect-Appointment-1"
+          ]
+        },
+        "contained": [
+          {
+            "resourceType": "Organization",
+            "id": "1",
+            "meta": {
+              "profile": [
+                "https://fhir.nhs.uk/STU3/StructureDefinition/CareConnect-GPC-Organization-1"
+              ]
+            },
+            "identifier": [
+              {
+                "system": "https://fhir.nhs.uk/Id/ods-organization-code",
+                "value": "A20047"
+              }
+            ],
+            "name": "Dr Legg's Surgery",
+            "telecom": [
+              {
+                "system": "phone",
+                "value": "0300 303 5678"
+              }
+            ]
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-DeliveryChannel-2",
+            "valueCode": "Telephone"
+          },
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-PractitionerRole-1",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://fhir.nhs.uk/STU3/ValueSet/GPConnect-PractitionerRole-1",
+                  "code": "R1480",
+                  "display": "Healthcare Assistant"
+                }
+              ]
+            }
+          },
+          {
+            "url": "https://fhir.nhs.uk/STU3/StructureDefinition/Extension-GPConnect-BookingOrganisation-1",
+            "valueReference": {
+              "reference": "#1"
+            }
+          }
+        ],
+        "status": "booked",
+        "priority": 0,
+        "description": "A follow-up appointment for tests.",
+        "start": "2020-02-29T09:10:00+00:00",
+        "end": "2020-02-29T09:20:00+00:00",
+        "minutesDuration": 10,
+        "slot": [
+          {
+            "reference": "Slot/255537"
+          }
+        ],
+        "participant": [
+          {
+            "actor": {
+              "reference": "Patient/2"
+            },
+            "status": "accepted"
+          },
+          {
+            "actor": {
+              "reference": "Location/17"
+            },
+            "status": "accepted"
+          },
+          {
+            "actor": {
+              "reference": "Practitioner/2"
+            },
+            "status": "accepted"
+          }
+        ]
+      }
+    }
+  ]
+}

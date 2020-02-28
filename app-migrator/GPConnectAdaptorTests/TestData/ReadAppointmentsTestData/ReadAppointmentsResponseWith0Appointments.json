@@ -1,0 +1,15 @@
+{
+  "resourceType": "Bundle",
+  "id": "12595256-b59a-4298-8885-7f83da508f8a",
+  "meta": {
+    "lastUpdated": "2020-02-28T17:28:49.401+00:00"
+  },
+  "type": "searchset",
+  "total": 0,
+  "link": [
+    {
+      "relation": "self",
+      "url": "https://orange.testlab.nhs.uk/gpconnect-demonstrator/v1/fhir/Patient/2/Appointment?start=ge2020-03-15&start=le2020-03-16"
+    }
+  ]
+}

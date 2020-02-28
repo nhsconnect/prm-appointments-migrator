@@ -1,11 +1,7 @@
-using Xunit;
-using FluentAssertions;
-using GPConnectAdaptor;
-using NSubstitute;
-
-namespace GPConnectAdaptorTests
+namespace GPConnectAdaptorTests.Slots
 {
     public class SlotClientTests
     {
+        
     }
 }
