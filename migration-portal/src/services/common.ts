@@ -6,4 +6,5 @@ export const commonHeaders = {
     'Ssp-InteractionID': 'urn:nhs:names:services:gpconnect:fhir:rest:search:slot-1',
 };
 
-export const domain = 'http://localhost:9000/gpconnect-demonstrator/v1/fhir';
+// export const domain = 'http://sdf68sdf6.ngrok.io';
+export const domain = 'http://localhost:4010';

@@ -45,6 +45,16 @@ services:
       - VERSION=0.1.0
     volumes:
       - ./app-migrator:/app:delegated
+  stubs:
+    build:
+      context: ./migrator
+      dockerfile: Dockerfile
+      target: runtime
+    ports:
+      - 4010:4010
+    volumes:
+      - ./migrator:/app:delegated
+    command: npm start
   gpconnect-api2:
     build:
       target: runtime
