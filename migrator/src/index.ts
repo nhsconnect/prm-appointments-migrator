@@ -1,6 +1,5 @@
 import express from 'express';
 import { buildRequest } from './services/jwt';
-import { getSlots } from './services/slots';
 import { mockFindAppointments, mockBookAppointments } from './mock/appointments';
 import cors from 'cors';
 
@@ -25,7 +24,6 @@ app.get('/find-appointments', async (req, res) => {
   const response = mockFindAppointments;
   res.send(response);
 });
-
 
 app.get('/book-appointments', async (req, res) => {
   const response = mockBookAppointments;
