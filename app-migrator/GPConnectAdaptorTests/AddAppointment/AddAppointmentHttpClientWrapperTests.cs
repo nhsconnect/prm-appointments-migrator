@@ -1,18 +1,12 @@
-using System;
-using System.IO;
-using System.Reflection;
-using System.Text.Json;
 using FluentAssertions;
 using Flurl.Http.Testing;
 using GPConnectAdaptor;
 using GPConnectAdaptor.AddAppointment;
-using GPConnectAdaptor.Models.AddAppointment;
-using Newtonsoft.Json;
 using NSubstitute;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace GPConnectAdaptorTests
+namespace GPConnectAdaptorTests.AddAppointment
 {
     public class AddAppointmentHttpClientWrapperTests
     {

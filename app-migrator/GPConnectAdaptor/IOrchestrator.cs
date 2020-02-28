@@ -11,6 +11,6 @@ namespace GPConnectAdaptor
     {
         Task<AddAppointmentResponse> AddAppointment(AddAppointmentCriteria criteria);
         Task<AddAppointmentCriteria> GetSlotInfo(TempAddAppointmentRequest request);
-        Task<List<int>> GetFutureAppointments(List<long> nhsNumbers);
+        Task<List<Appointment>> GetFutureAppointments(List<long> nhsNumbers);
     }
 }

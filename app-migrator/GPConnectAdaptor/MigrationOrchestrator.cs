@@ -6,6 +6,7 @@ using GPConnectAdaptor.Models.AddAppointment;
 using GPConnectAdaptor.Models.ReadAppointments;
 using GPConnectAdaptor.Models.Slot;
 using GPConnectAdaptor.Patient;
+using GPConnectAdaptor.ReadAppointments;
 
 namespace GPConnectAdaptor
 {
@@ -14,12 +15,14 @@ namespace GPConnectAdaptor
         private readonly Slots.ISlotClient _slotClient;
         private readonly IAddAppointmentClient _addAppointmentClient;
         private readonly IPatientLookup _patientLookup;
+        private readonly IReadAppointmentsClient _readAppointmentsClient;
 
-        public MigrationOrchestrator(Slots.ISlotClient slotClient, IAddAppointmentClient addAppointmentClient, IPatientLookup patientLookup)
+        public MigrationOrchestrator(Slots.ISlotClient slotClient, IAddAppointmentClient addAppointmentClient, IPatientLookup patientLookup, IReadAppointmentsClient readAppointmentsClient)
         {
             _slotClient = slotClient;
             _addAppointmentClient = addAppointmentClient;
             _patientLookup = patientLookup;
+            _readAppointmentsClient = readAppointmentsClient;
         }
 
         /// <summary>
@@ -81,14 +84,22 @@ namespace GPConnectAdaptor
         /// <summary>
         /// temporary method to test
         /// </summary>
+        /// <param name="nhsNumbers"></param>
         /// <param name="request"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<List<int>> GetFutureAppointments(List<long> nhsNumbers)
+        public async Task<List<Appointment>> GetFutureAppointments(List<long> nhsNumbers)
         {
+            var appointments = new List<Appointment>();
             await _patientLookup.Initialize(nhsNumbers);
             var patientIds = _patientLookup.GetPatientIds();
-            return patientIds.ToList();
+
+            foreach (var patientId in patientIds)
+            {
+                appointments.AddRange(await _readAppointmentsClient.GetFutureAppointments(patientId));
+            }
+            
+            return appointments;
         }
 
         private static string GetLocationId(SlotResponse slots, string scheduleId)

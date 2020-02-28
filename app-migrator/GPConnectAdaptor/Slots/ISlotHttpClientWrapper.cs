@@ -1,8 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using GPConnectAdaptor.Models;
 
-namespace GPConnectAdaptor
+namespace GPConnectAdaptor.Slots
 {
     public interface ISlotHttpClientWrapper
     {

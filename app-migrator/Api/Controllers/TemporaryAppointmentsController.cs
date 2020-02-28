@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using GPConnectAdaptor;
 using Microsoft.AspNetCore.Mvc;
@@ -20,11 +21,16 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddAppointment([FromBody] List<long> nhsNumbers)
+        public async Task<IActionResult> AddAppointment([FromBody] NhsNumbersModel nhsNumbers)
         {
-            var result = await _orchestrator.GetFutureAppointments(nhsNumbers);
+            var result = await _orchestrator.GetFutureAppointments(nhsNumbers.NhsNumbers);
             
             return new JsonResult(result);
         }
+    }
+
+    public class NhsNumbersModel
+    {
+        public List<long> NhsNumbers { get; set; }
     }
 }

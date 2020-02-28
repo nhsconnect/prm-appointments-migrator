@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using GPConnectAdaptor;
 using GPConnectAdaptor.AddAppointment;
 using GPConnectAdaptor.Patient;
+using GPConnectAdaptor.ReadAppointments;
 using GPConnectAdaptor.Slots;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -56,6 +57,11 @@ namespace Api
             services.AddScoped<IPatientLookupHttpClientWrapper, PatientLookupHttpClientWrapper>();
             services.AddScoped<IPatientLookup, PatientLookup>();
             services.AddScoped<IPatientLookupClient, PatientLookupClient>();
+            
+            // read appointment
+            services.AddScoped<IReadAppointmentsHttpClientWrapper, ReadAppointmentsHttpClientWrapper>();
+            services.AddScoped<IReadAppointmentsClient, ReadAppointmentsClient>();
+            services.AddScoped<IAppointmentsResponseMapper, AppointmentsResponseMapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
