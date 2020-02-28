@@ -1,7 +1,7 @@
 setup:
   addons:
-    plan: jawsdb-maria:kitefin
-    as: gpconnect-db1
+    - plan: jawsdb-maria:kitefin
+      as: gpconnect-db1
   config:
     MYSQL_ROOT_PASSWORD: password
     MYSQL_USER: gpconnectdbuser
