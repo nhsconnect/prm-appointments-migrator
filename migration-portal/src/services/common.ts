@@ -5,6 +5,3 @@ export const commonHeaders = {
     'Ssp-To': 918999198993,
     'Ssp-InteractionID': 'urn:nhs:names:services:gpconnect:fhir:rest:search:slot-1',
 };
-
-// export const domain = 'http://sdf68sdf6.ngrok.io';
-export const domain = 'http://localhost:4010';

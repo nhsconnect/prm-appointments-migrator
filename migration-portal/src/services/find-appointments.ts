@@ -2,7 +2,7 @@ import { api, domainOptions } from '../config/features';
 import { superfetch } from './superfetch';
 import { migratorTransformer } from './transformers/migrator';
 import { mockFindAppointments } from './mock/appointments';
-import { domain } from './common';
+import { domain } from '../config/env';
 
 export const findAppointments = async () => {
     const map = {
