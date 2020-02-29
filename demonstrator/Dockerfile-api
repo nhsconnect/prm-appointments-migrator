@@ -10,6 +10,7 @@ COPY ./ .
 FROM distro AS runtime
 WORKDIR /app
 COPY ./config ./config
+RUN true
 COPY --from=api-build /app/gpconnect-demonstrator-api/target/gpconnect-demonstrator-api.war ./app.war
 EXPOSE 19191
 EXPOSE 19192
