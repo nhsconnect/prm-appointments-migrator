@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+  gpconnect-db1:
+    image: mariadb
+    networks:
+      - gpconnect-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=gpconnectdbuser
+      - MYSQL_PASSWORD=gpc0nn3ct
+      - MYSQL_DATABASE=gpconnect
+  gpconnect-api1:
+    build:
+      target: runtime
+      context: ./demonstrator
+      dockerfile: Dockerfile-api
+    networks:
+      - gpconnect-network
+    environment:
+      - PORT=10000
+      - DATABASE_ADDRESS=gpconnect-db1
+      - DATABASE_PORT=3306
+      - DATABASE_USERNAME=gpconnectdbuser
+      - DATABASE_PASSWORD=gpc0nn3ct
+      - DATABASE_SCHEMA=gpconnect
+      - SERVER_BASE_URL=https://data.developer.nhs.uk/gpconnect-demonstrator/v1/fhir
+      - CONTEXT_PATH=/gpconnect-demonstrator/v1/
+    links:
+      - gpconnect-db1
+    depends_on:
+      - gpconnect-db1
+    entrypoint: java -jar /app/app.war --spring.config.location=file:/app/config/gpconnect-demonstrator-api.properties --server.port=2002 --server.port.http=5003 --config.path=/app/config/ --server.ssl.key-store=/app/config/server.jks --server.ssl.key-store-password=password --server.ssl.trust-store=/app/config/server.jks --server.ssl.trust-store-password=password --server.ssl.client-auth=want --datasource.host=gpconnect-db1 --datasource.port=3306 --datasource.username=gpconnectdbuser --datasource.password=gpc0nn3ct --datasource.schema=gpconnect --serverBaseUrl=https://data.developer.nhs.uk/gpconnect-demonstrator/v1/fhir --server.contextPath=/gpconnect-demonstrator/v1/
+    ports: 
+      - 1003:5003
+networks:
+  gpconnect-network:
+    driver: bridge
