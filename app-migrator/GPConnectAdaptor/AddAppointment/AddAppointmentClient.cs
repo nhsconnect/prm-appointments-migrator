@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using GPConnectAdaptor.Models.AddAppointment;
+using GPConnectAdaptor.Slots;
 using Newtonsoft.Json;
 
 namespace GPConnectAdaptor.AddAppointment
@@ -25,11 +26,12 @@ namespace GPConnectAdaptor.AddAppointment
             string patientRef,
             string locationRef,
             DateTime start,
-            DateTime end)
+            DateTime end, 
+            SourceTarget sourceTarget)
         {
             var request = _addAppointmentRequestBuilder.Build(slotRef, patientRef, locationRef, start, end);
             var appointmentRequestBody = JsonConvert.SerializeObject(request);
-            var appointmentResponseBody = await _httpClientWrapper.PostAsync(appointmentRequestBody);
+            var appointmentResponseBody = await _httpClientWrapper.PostAsync(appointmentRequestBody, sourceTarget);
             var appointment = _addAppointmentResponseDeserializer.Deserialize(appointmentResponseBody);
 
             return appointment;

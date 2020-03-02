@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Flurl;
 using Flurl.Http;
+using Hl7.Fhir.Language.Debugging;
 
 namespace GPConnectAdaptor.Slots
 {
     public class SlotHttpClientWrapper : ISlotHttpClientWrapper
     {
-        private readonly string _uri;
+        private  string _uri;
         private readonly string _searchFilter =
             "https://fhir.nhs.uk/STU3/CodeSystem/GPConnect-OrganisationType-1|gp-practice";
         private readonly string _traceId = "09a01679-2564-0fb4-5129-aecc81ea2706";
@@ -27,8 +28,13 @@ namespace GPConnectAdaptor.Slots
                 cli.Settings.HttpClientFactory = new UntrustedCertClientFactory());
         }
 
-        public async Task<string> GetAsync(DateTime start, DateTime end)
+        public async Task<string> GetSlotsHttp(DateTime start, DateTime end, SourceTarget sourceTarget = SourceTarget.Target)
         {
+            if (sourceTarget == SourceTarget.Source)
+            {
+                _uri = ServiceConfig.GetSourceDomain();
+            }
+            
             var client = SetHeadersAndQueryParam(start, end);
 
             try
@@ -48,7 +54,6 @@ namespace GPConnectAdaptor.Slots
                 
                 throw new Exception($"Unable to receive Slots. Unidentified Error");
             }
-            
         }
 
         private IFlurlRequest SetHeadersAndQueryParam(DateTime start, DateTime end)
@@ -74,5 +79,11 @@ namespace GPConnectAdaptor.Slots
                 .SetQueryParam(Url.Encode("_include:recurse"), "Schedule:actor:Practitioner", false)
                 .SetQueryParam("searchFilter", _searchFilter, false);
         }
+    }
+
+    public enum SourceTarget
+    {
+        Source,
+        Target
     }
 }

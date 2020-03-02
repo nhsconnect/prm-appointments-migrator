@@ -12,7 +12,7 @@ namespace GPConnectAdaptorTests.ReadAppointments
     public class AppointmentsResponseMapperTests
     {
         private readonly string[] _filePaths;
-        private readonly string[] _files = new string[2];
+        private readonly string[] _files = new string[3];
 
         public AppointmentsResponseMapperTests()
         {
@@ -21,7 +21,8 @@ namespace GPConnectAdaptorTests.ReadAppointments
             _filePaths = new[]
             {
                 "GPConnectAdaptorTests.TestData.ReadAppointmentsTestData.ReadAppointmentResponseWith2Appointments.json",
-                "GPConnectAdaptorTests.TestData.ReadAppointmentsTestData.ReadAppointmentsResponseWith0Appointments.json"
+                "GPConnectAdaptorTests.TestData.ReadAppointmentsTestData.ReadAppointmentsResponseWith0Appointments.json",
+                "GPConnectAdaptorTests.TestData.ReadAppointmentsTestData.anothertest.json"
             };
             var i = 0;
             foreach (var filePath in _filePaths)
@@ -70,6 +71,16 @@ namespace GPConnectAdaptorTests.ReadAppointments
             var result = sut.Map(_files[1]);
 
             result.Should().BeNull();
+        }
+        
+        [Fact]
+        public void Map_anothertest_ReturnsNull()
+        {
+            var sut = new AppointmentsResponseMapper();
+
+            var result = sut.Map(_files[2]);
+
+            result.Count.Should().Be(2);
         }
     }
 }

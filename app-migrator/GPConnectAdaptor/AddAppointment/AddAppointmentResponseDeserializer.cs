@@ -1,3 +1,4 @@
+using System;
 using GPConnectAdaptor.Models.AddAppointment;
 
 namespace GPConnectAdaptor.AddAppointment
@@ -6,7 +7,15 @@ namespace GPConnectAdaptor.AddAppointment
     {
         public AddAppointmentResponse Deserialize(string response)
         {
-            return System.Text.Json.JsonSerializer.Deserialize<AddAppointmentResponse>(response);
+            try
+            {
+                return System.Text.Json.JsonSerializer.Deserialize<AddAppointmentResponse>(response);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw new Exception($"unable to deserialise appointment response. RESPONSE: '{response}'");
+            }
         }
     }
 }

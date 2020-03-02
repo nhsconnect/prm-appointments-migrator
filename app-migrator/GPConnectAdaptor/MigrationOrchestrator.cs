@@ -7,6 +7,8 @@ using GPConnectAdaptor.Models.ReadAppointments;
 using GPConnectAdaptor.Models.Slot;
 using GPConnectAdaptor.Patient;
 using GPConnectAdaptor.ReadAppointments;
+using GPConnectAdaptor.Slots;
+using Newtonsoft.Json;
 
 namespace GPConnectAdaptor
 {
@@ -24,13 +26,8 @@ namespace GPConnectAdaptor
             _patientLookup = patientLookup;
             _readAppointmentsClient = readAppointmentsClient;
         }
-
-        /// <summary>
-        /// Add Appointment. Also temporary.
-        /// </summary>
-        /// <param name="criteria"></param>
-        /// <returns></returns>
-        public async Task<AddAppointmentResponse> AddAppointment(AddAppointmentCriteria criteria)
+        
+        public async Task<AddAppointmentResponse> AddAppointment(AddAppointmentCriteria criteria, SourceTarget sourceTarget = SourceTarget.Target)
         {
             try
             {
@@ -38,7 +35,9 @@ namespace GPConnectAdaptor
                     criteria.SlotReference,
                     criteria.PatientId,
                     criteria.LocationId,
-                    criteria.Start, criteria.End);
+                    criteria.Start, 
+                    criteria.End,
+                    sourceTarget);
             }
             catch (Exception e)
             {
@@ -47,47 +46,34 @@ namespace GPConnectAdaptor
             
         }
         
-        
-        /// <summary>
-        /// This is temporary and obsolete. Will be removed.
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public async Task<AddAppointmentCriteria> GetSlotInfo(TempAddAppointmentRequest request)
+        public async Task<AddAppointmentCriteria> GetSlotInfo(BookAppointmentModel model, SourceTarget sourceTarget = SourceTarget.Target)
         {
             SlotResponse slots;
             Resource slot;
 
             try
             {
-                slots =  await _slotClient.GetSlots(request.Start, request.End);
-                slot = FindSlot(request, slots);
+                slots =  await _slotClient.GetSlots(model.Start, model.End, sourceTarget);
+                slot = FindSlot(model, slots);
             }
             catch (ArgumentNullException e)
             { 
                 throw new Exception("No Slots found for this time");
             }
 
-            var scheduleId = slot.schedule.reference.Substring(9); //actual id starts at 9th char because of weird contract
+            var scheduleId = slot.schedule.reference.Substring(9); 
             var locationId = GetLocationId(slots, scheduleId);
 
             return new AddAppointmentCriteria()
             {
-                PatientId = request.PatientId,
+                PatientId = model.PatientId,
                 LocationId = locationId,
                 SlotReference = slot.id,
                 Start = slot.start ?? new DateTime(),
                 End = slot.end ?? new DateTime()
             };
         }
-
-        /// <summary>
-        /// temporary method to test
-        /// </summary>
-        /// <param name="nhsNumbers"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
+        
         public async Task<List<Appointment>> GetFutureAppointments(List<long> nhsNumbers)
         {
             var appointments = new List<Appointment>();
@@ -96,9 +82,13 @@ namespace GPConnectAdaptor
 
             foreach (var patientId in patientIds)
             {
-                appointments.AddRange(await _readAppointmentsClient.GetFutureAppointments(patientId));
+                var appointmentsToAdd = await _readAppointmentsClient.GetFutureAppointments(patientId);
+                if (appointmentsToAdd != null && appointmentsToAdd.Count > 0)
+                {
+                    appointments.AddRange(appointmentsToAdd);
+                }
             }
-            
+
             return appointments;
         }
 
@@ -111,20 +101,17 @@ namespace GPConnectAdaptor
             return locationId;
         }
 
-        private static Resource FindSlot(TempAddAppointmentRequest request, SlotResponse slots)
+        private static Resource FindSlot(BookAppointmentModel model, SlotResponse slots)
         {
             return slots.entry
                 .Select(e => e.resource)
                 .Where(r => r.resourceType == "Slot")
                 .First(s =>
-                    s.start >= request.Start.Subtract(new TimeSpan(0, 0, 1)) &&
-                    s.end <= request.End.AddSeconds(1));
+                    s.start >= model.Start.Subtract(new TimeSpan(0, 0, 1)) &&
+                    s.end <= model.End.AddSeconds(1));
         }
     }
-    
-    /// <summary>
-    /// Temporary, will be obsolete
-    /// </summary>
+
     public class AddAppointmentCriteria
     {
         public string SlotReference { get; set; }
@@ -134,13 +121,15 @@ namespace GPConnectAdaptor
         public DateTime End { get; set; }
     }
     
-    /// <summary>
-    /// Temporary and will be obsolete
-    /// </summary>
-    public class TempAddAppointmentRequest
+
+    public class BookAppointmentModel
     {
         public string PatientId { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
+        
+        public string LocationId { get; set; }
+        
+        public string PractitionerId { get; set; }
     }
 }

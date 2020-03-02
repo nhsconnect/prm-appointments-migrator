@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using GPConnectAdaptor.Models;
 using GPConnectAdaptor.Models.AddAppointment;
+using GPConnectAdaptor.Slots;
 
 namespace GPConnectAdaptor
 {
@@ -11,6 +12,7 @@ namespace GPConnectAdaptor
             string patientRef,
             string locationRef,
             DateTime start,
-            DateTime end);
+            DateTime end, 
+            SourceTarget sourceTarget);
     }
 }

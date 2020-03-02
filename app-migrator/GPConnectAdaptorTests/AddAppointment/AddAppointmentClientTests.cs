@@ -1,18 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using FluentAssertions;
 using GPConnectAdaptor;
 using GPConnectAdaptor.AddAppointment;
-using GPConnectAdaptor.Models;
 using GPConnectAdaptor.Models.AddAppointment;
+using GPConnectAdaptor.Slots;
 using Newtonsoft.Json;
 using NSubstitute;
 using Xunit;
 
-namespace GPConnectAdaptorTests
+namespace GPConnectAdaptorTests.AddAppointment
 {
     public class AddAppointmentClientTests
     {
@@ -87,7 +86,8 @@ namespace GPConnectAdaptorTests
                 "2",
                 "1",
                 new DateTime(2020, 02, 05, 10, 10, 00),
-                new DateTime(2020, 02, 05, 10, 20, 00));
+                new DateTime(2020, 02, 05, 10, 20, 00),
+                SourceTarget.Target);
 
             result.Should().NotBeNull();
             result.Result.description.Should()
@@ -122,7 +122,8 @@ namespace GPConnectAdaptorTests
                 "2",
                 "1",
                 new DateTime(2020, 02, 05, 10, 10, 00),
-                new DateTime(2020, 02, 05, 10, 20, 00));
+                new DateTime(2020, 02, 05, 10, 20, 00),
+                SourceTarget.Target);
 
             result.Should().NotBeNull();
             result.Result.resourceType.Should().BeEquivalentTo("OperationOutcome");

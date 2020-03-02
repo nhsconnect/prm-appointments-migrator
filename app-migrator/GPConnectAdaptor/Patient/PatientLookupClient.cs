@@ -18,11 +18,11 @@ namespace GPConnectAdaptor.Patient
 
         public async Task<int> GetPatientId(long nhsNumber)
         {
-            var response = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(await _wrapper.GetAsync(nhsNumber));
-            JArray arrayOfEntries = JsonConvert.DeserializeObject<JArray>(response["entry"].ToString());
-
             try
             {
+                var response = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(await _wrapper.GetAsync(nhsNumber));
+                JArray arrayOfEntries = JsonConvert.DeserializeObject<JArray>(response["entry"].ToString());
+                
                 var patientIdObject = arrayOfEntries
                     .First(e => e["resource"]["resourceType"].ToString() == "Patient")["resource"]["id"]
                     .ToString();
