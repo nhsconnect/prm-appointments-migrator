@@ -1,7 +1,5 @@
-
 export const domainOptions = {
-    gpconnect: 'gpconnect',
-    migrator: 'migrator',
+    prod: 'prod',
     none: 'none'
 };
 
@@ -16,5 +14,5 @@ export const setFeatures = (featuresToSet: { [s: string]: unknown; } | ArrayLike
 };
 
 export const api = () => {
-    return features.api;
+    return domainOptions[features.api] || domainOptions.none
 };

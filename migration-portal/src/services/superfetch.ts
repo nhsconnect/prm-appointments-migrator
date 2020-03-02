@@ -5,12 +5,15 @@ interface parameters {
     body?: string;
 }
 
-export const superfetch = async ({ url, headers = {}, method = 'GET', body = '' }: parameters) => {
-    const response = await fetch(url, {
+export const superfetch = async ({ url, headers = {}, method = 'GET', body}: parameters) => {
+    const baseOptions: RequestInit = {
         headers,
-        method,
-        body
-    }).catch((error) => {
+        method
+    };
+
+    const options = body ? { ...baseOptions, body } : baseOptions;
+
+    const response = await fetch(url, options).catch((error) => {
         console.log('error', error);
     });
 

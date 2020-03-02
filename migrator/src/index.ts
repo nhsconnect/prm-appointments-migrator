@@ -1,43 +1,32 @@
 import express from 'express';
 import { buildRequest } from './services/jwt';
-import { getSlots } from './services/slots';
-import { findAppointments } from './services/find-appointments';
+import { mockFindAppointments, mockBookAppointments } from './mock/appointments';
+import cors from 'cors';
 
 export const app = express();
 app.use((req, res, next) => {
-  // console.log(req.path);
   next();
 });
 app.use(express.json());
+app.use(cors())
 
 app.get('/token', async (req, res) => {
   const response = buildRequest();
-  // const response = await getSlots();
   res.send(response);
 });
 
 app.get('/token-write', async (req, res) => {
   const response = buildRequest(true);
-  // const response = await getSlots();
   res.send(response);
 });
 
-app.get('/slots1', async (req, res) => {
-  const domain = process.env.demonstrator1 as string;
-  const port = process.env.demonstratorport as string;
-  const response = await getSlots({ domain, port });
+app.get('/find-appointments', async (req, res) => {
+  const response = mockFindAppointments;
   res.send(response);
 });
 
-app.get('/slots2', async (req, res) => {
-  const domain = process.env.demonstrator2 as string;
-  const port = process.env.demonstratorport as string;
-  const response = await getSlots({ domain, port});
-  res.send(response);
-});
-
-app.get('/appointments', async (req, res) => {
-  const response = await findAppointments();
+app.get('/book-appointments', async (req, res) => {
+  const response = mockBookAppointments;
   res.send(response);
 });
 
