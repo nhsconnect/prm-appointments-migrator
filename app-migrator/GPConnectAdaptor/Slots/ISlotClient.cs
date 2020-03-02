@@ -6,6 +6,6 @@ namespace GPConnectAdaptor.Slots
 {
     public interface ISlotClient
     {
-        Task<SlotResponse> GetSlots(DateTime start, DateTime end);
+        Task<SlotResponse> GetSlots(DateTime start, DateTime end, SourceTarget sourceTarget = SourceTarget.Target);
     }
 }

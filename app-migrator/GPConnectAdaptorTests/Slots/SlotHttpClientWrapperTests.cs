@@ -35,7 +35,7 @@ namespace GPConnectAdaptorTests.Slots
             var end = new DateTime(2020, 02, 08, 10, 10, 00);
             var sut = new SlotHttpClientWrapper(mockTokenGenerator, new DateTimeGenerator(), true); // isTest = true
 
-            var result = await sut.GetAsync(start, end);
+            var result = await sut.GetSlotsHttp(start, end);
 
             foreach (var call in this._httpTest.CallLog)
             {

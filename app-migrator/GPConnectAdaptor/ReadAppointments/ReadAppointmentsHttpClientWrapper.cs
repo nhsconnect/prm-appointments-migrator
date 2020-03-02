@@ -21,7 +21,7 @@ namespace GPConnectAdaptor.ReadAppointments
         {
             _tokenGenerator = tokenGenerator;
             _dateTimeGenerator = dateTimeGenerator;
-            _uri = isTest ? "http://test.com" : ServiceConfig.GetSourceDomain();
+            _uri =  ServiceConfig.GetSourceDomain(); // isTest ? "http://test.com" :
             FlurlHttp.ConfigureClient(_uri, cli =>
                 cli.Settings.HttpClientFactory = new UntrustedCertClientFactory());
         }

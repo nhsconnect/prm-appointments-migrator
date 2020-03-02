@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
-using GPConnectAdaptor.Models.AddAppointment;
+using GPConnectAdaptor.Slots;
 
-namespace GPConnectAdaptor
+namespace GPConnectAdaptor.AddAppointment
 {
     public interface IAddAppointmentHttpClientWrapper
     {
-        Task<string> PostAsync(string requestBody);
+        Task<string> PostAsync(string requestBody, SourceTarget sourceTarget = SourceTarget.Target);
     }
 }

@@ -16,12 +16,12 @@ namespace GPConnectAdaptor.ReadAppointments
 
             try
             {
-                return parsed["total"] > 0 ? AppendAppointments(appointments, parsed) : null;
+                return parsed.Any(p => p.Key == "entry") ? AppendAppointments(appointments, parsed) : null;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw new Exception($"unable to parse response when trying to get appointments. Failed with {e.Message}");
+                throw new Exception($"unable to parse response when trying to get appointments. Failed with {response}");
             }
         }
 

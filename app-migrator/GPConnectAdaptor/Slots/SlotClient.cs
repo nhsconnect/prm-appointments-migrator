@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using GPConnectAdaptor.Models.Slot;
+using Newtonsoft.Json;
 
 namespace GPConnectAdaptor.Slots
 {
@@ -15,13 +16,12 @@ namespace GPConnectAdaptor.Slots
             _clientWrapper = clientWrapper;
             _deserializer = deserializer;
         } 
-        public async Task<SlotResponse> GetSlots(DateTime start, DateTime end)
+        public async Task<SlotResponse> GetSlots(DateTime start, DateTime end, SourceTarget sourceTarget = SourceTarget.Target)
         {
-            var response = await _clientWrapper.GetAsync(start, end);
+            var response = await _clientWrapper.GetSlotsHttp(start, end, sourceTarget);
             var slots = _deserializer.Deserialize(response);
 
             return slots;
-
         }
     }
 }

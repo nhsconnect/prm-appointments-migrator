@@ -12,6 +12,7 @@ using GPConnectAdaptor;
 using GPConnectAdaptor.Models;
 using GPConnectAdaptor.Models.AddAppointment;
 using Microsoft.AspNetCore.Server.HttpSys;
+using Newtonsoft.Json;
 
 namespace Api.Controllers
 {
@@ -30,12 +31,12 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddAppointment([FromBody] TempAddAppointmentRequest request)
+        public async Task<IActionResult> AddAppointment([FromBody] List<BookAppointmentModel> model)
         {
-            var slotInfo = _orchestrator.GetSlotInfo(request);
+            var slotInfo = _orchestrator.GetSlotInfo(model.First()); //TODO
 
             var appointment = await _orchestrator.AddAppointment(await slotInfo);
-            return new JsonResult(appointment);
+            return new JsonResult(JsonConvert.SerializeObject(appointment));
         }
     }
 }

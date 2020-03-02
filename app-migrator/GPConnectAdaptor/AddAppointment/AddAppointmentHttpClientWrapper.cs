@@ -1,12 +1,13 @@
 using System.Threading.Tasks;
 using Flurl;
 using Flurl.Http;
+using GPConnectAdaptor.Slots;
 
 namespace GPConnectAdaptor.AddAppointment
 {
     public class AddAppointmentHttpClientWrapper : IAddAppointmentHttpClientWrapper
     {
-        private readonly string _uri;
+        private string _uri;
         private readonly string _traceId = "09a01679-2564-0fb4-5129-aecc81ea2706";
         private readonly string _consumerAsid = "200000000359";
         private readonly string _providerAsid = "918999198993";
@@ -21,8 +22,12 @@ namespace GPConnectAdaptor.AddAppointment
                 cli.Settings.HttpClientFactory = new UntrustedCertClientFactory());
         }
 
-        public async Task<string> PostAsync(string requestBody)
+        public async Task<string> PostAsync(string requestBody, SourceTarget sourceTarget = SourceTarget.Target)
         {
+            if (sourceTarget == SourceTarget.Source)
+            {
+                _uri = ServiceConfig.GetSourceDomain();
+            }
             var temp = _uri
                 .AppendPathSegment("/Appointment")
                 .WithHeaders(new
