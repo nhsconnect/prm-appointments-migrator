@@ -17,6 +17,7 @@ export const pendingStates = {
 export default () => {
     const [numberAppts, setNumberAppts] = useState();
     const [interstitial, setInterstitial] = useState('');
+    const [appointments, setAppointments] = useState([]);
 
     return <Fragment>
         <Switch>
@@ -26,14 +27,13 @@ export default () => {
             <Route path={`/${publicPath}/appointments`}>
                 {interstitial === pendingStates.transferring
                     ? <Transferring numberAppts={numberAppts} />
-                    : <FindAppointments startTransferring={setInterstitial} setNumberAppts={setNumberAppts} />
+                    : <FindAppointments startTransferring={setInterstitial} setNumberAppts={setNumberAppts} setAppointmentsHook={setAppointments}/>
                 }
             </Route>
             <Route path={`/${publicPath}/booked`}>
-                <BookAppointments />
+                <BookAppointments appointments={appointments}/>
             </Route>
         </Switch>
         {api() !== 'none' && <ApiInfo />}
-        
     </Fragment>;
 };

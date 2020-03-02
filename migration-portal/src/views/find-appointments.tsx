@@ -7,15 +7,17 @@ import { pendingStates } from './content';
 interface findAppointments {
     setNumberAppts: Dispatch<SetStateAction<string>>,
     startTransferring: Dispatch<SetStateAction<string>>,
+    setAppointmentsHook: Dispatch<SetStateAction<never[]>>,
 }
 
-export default ({ setNumberAppts, startTransferring }: findAppointments) => {
+export default ({ setNumberAppts, startTransferring, setAppointmentsHook }: findAppointments) => {
     const [appointments, setAppointments] = useState([]);
 
     const getSlotService = async () => {
         const response = await findAppointments();
         setAppointments(response);
         setNumberAppts(response.length);
+        setAppointmentsHook(response);
     };
 
     useEffect(() => {
