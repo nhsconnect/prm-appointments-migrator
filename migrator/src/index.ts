@@ -2,6 +2,7 @@ import express from 'express';
 import { buildRequest } from './services/jwt';
 import { mockFindAppointments, mockBookAppointments } from './mock/appointments';
 import cors from 'cors';
+import { findSlotsBookAppointments } from './orchestrate/slots-book';
 
 export const app = express();
 app.use((req, res, next) => {
@@ -25,8 +26,12 @@ app.get('/find-appointments', async (req, res) => {
   res.send(response);
 });
 
-app.get('/book-appointments', async (req, res) => {
-  const response = mockBookAppointments;
+app.post('/book-appointments-source', async (req, res) => {
+  const response = await findSlotsBookAppointments({
+    start: 'ge2020-03-04T12:10:00+00:00',
+    end: 'le2020-03-04T12:20:00+00:00',
+    patientId: '2'
+  });
   res.send(response);
 });
 

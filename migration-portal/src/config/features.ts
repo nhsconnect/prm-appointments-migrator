@@ -4,7 +4,8 @@ export const domainOptions = {
 };
 
 const features = {
-    api: domainOptions.none
+    api: domainOptions.none,
+    domain: ''
 };
 
 export const setFeatures = (featuresToSet: { [s: string]: unknown; } | ArrayLike<unknown>) => {
@@ -16,3 +17,7 @@ export const setFeatures = (featuresToSet: { [s: string]: unknown; } | ArrayLike
 export const api = () => {
     return domainOptions[features.api] || domainOptions.none
 };
+
+export const domain = () => {
+    return `https://${features.domain}.ngrok.io`;
+}

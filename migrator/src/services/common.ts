@@ -6,7 +6,7 @@ export const commonHeaders = {
 };
 
 export const path = '/gpconnect-demonstrator/v1/fhir';
-export const port = process.env.demonstratorport;
+export const port = process.env.demonstratorport || '9000';
 
 export const domain2 = `http://${process.env.demonstrator2}:${port}${path}`;
 export const domain1 = `http://${process.env.demonstrator1}:${port}${path}`;

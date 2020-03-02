@@ -1,8 +1,7 @@
-import { api, domainOptions } from '../config/features';
+import { api, domainOptions, domain } from '../config/features';
 import { superfetch } from './superfetch';
 import { migratorTransformer } from './transformers/migrator';
 import { mockFindAppointments } from './mock/appointments';
-import { domain } from '../config/env';
 
 export const findAppointments = async () => {
     const map = {
@@ -13,7 +12,7 @@ export const findAppointments = async () => {
 };
 
 export const findAppointmentsParth = async () => {
-    const url = `${domain}/find-appointments`;
+    const url = `${domain()}/findappointments`;
 
     const response = await superfetch({ url, method: 'GET' });
     return migratorTransformer(response);

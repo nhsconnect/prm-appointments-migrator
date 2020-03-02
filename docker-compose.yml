@@ -55,6 +55,13 @@ services:
     volumes:
       - ./migrator:/app:delegated
     command: npm start
+    environment:
+      - demonstrator1=gpconnect-api1
+      - demonstrator2=gpconnect-api2
+      - demonstratorport=19191
+      - VERSION=0.1.0
+    networks:
+      - gpconnect-network
   gpconnect-api2:
     build:
       target: runtime
