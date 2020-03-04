@@ -7,14 +7,16 @@ namespace GPConnectAdaptor
 
         public static string GetTargetDomain()
         {
-            return "http://" + Environment.GetEnvironmentVariable("demonstrator2") + ":" +
-                   Environment.GetEnvironmentVariable("demonstratorport") + "/gpconnect-demonstrator/v1/fhir";
+            return "http://localhost:19192/gpconnect-demonstrator/v1/fhir";
+            // return "http://" + Environment.GetEnvironmentVariable("demonstrator2") + ":" +
+            //        Environment.GetEnvironmentVariable("demonstratorport2") + "/gpconnect-demonstrator/v1/fhir";
         }
 
         public static string GetSourceDomain()
         {
-            return "http://" + Environment.GetEnvironmentVariable("demonstrator1") + ":" +
-                   Environment.GetEnvironmentVariable("demonstratorport")+"/gpconnect-demonstrator/v1/fhir";
+            return "http://localhost:19191/gpconnect-demonstrator/v1/fhir";
+            // return "http://" + Environment.GetEnvironmentVariable("demonstrator1") + ":" +
+            //        Environment.GetEnvironmentVariable("demonstratorport1")+"/gpconnect-demonstrator/v1/fhir";
         }
     }
 }

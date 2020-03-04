@@ -1,9 +1,10 @@
 using System.Threading.Tasks;
+using GPConnectAdaptor.Models.Patient;
 
 namespace GPConnectAdaptor.Patient
 {
     public interface IPatientLookupClient
     {
-        Task<int> GetPatientId(long nhsNumber);
+        Task<PatientModel> GetPatient(long nhsNumber);
     }
 }

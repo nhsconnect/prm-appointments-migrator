@@ -38,15 +38,16 @@ namespace GPConnectAdaptorTests.Patient
         }
         
         [Fact]
-        public async Task GetPatientId_WhenReceivedInResponse_ReturnsId()
+        public async Task GetPatient_WhenReceivedInResponse_ReturnsId()
         {
             var mockWrapper = Substitute.For<IPatientLookupHttpClientWrapper>();
             mockWrapper.GetAsync(1).Returns(_files[0]);
             var sut = new PatientLookupClient(mockWrapper);
 
-            var result = await sut.GetPatientId(1);
+            var result = await sut.GetPatient(1);
 
-            result.Should().Be(2);
+            result.Id.Should().Be(2);
+            result.Name.Should().BeEquivalentTo("Mike MEAKIN");
         } 
         
         [Fact]
@@ -55,8 +56,8 @@ namespace GPConnectAdaptorTests.Patient
             var mockWrapper = Substitute.For<IPatientLookupHttpClientWrapper>();
             mockWrapper.GetAsync(1).Returns("eirbveiuwrbv");
             var sut = new PatientLookupClient(mockWrapper);
-
-            JsonReaderException ex =  await Assert.ThrowsAsync<JsonReaderException>(() => sut.GetPatientId(1));
+        
+            Exception ex =  await Assert.ThrowsAsync<Exception>(() => sut.GetPatient(1));
         } 
     }
 }

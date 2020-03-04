@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GPConnectAdaptor.Models.Patient;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -16,18 +17,23 @@ namespace GPConnectAdaptor.Patient
             _wrapper = wrapper;
         }
 
-        public async Task<int> GetPatientId(long nhsNumber)
+        public async Task<PatientModel> GetPatient(long nhsNumber)
         {
             try
             {
                 var response = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(await _wrapper.GetAsync(nhsNumber));
                 JArray arrayOfEntries = JsonConvert.DeserializeObject<JArray>(response["entry"].ToString());
-                
-                var patientIdObject = arrayOfEntries
-                    .First(e => e["resource"]["resourceType"].ToString() == "Patient")["resource"]["id"]
-                    .ToString();
+                var patientJson = arrayOfEntries
+                    .First(e => e["resource"]["resourceType"].ToString() == "Patient");
 
-                return Int32.Parse(patientIdObject);
+                //return Int32.Parse(patientIdObject);
+                
+                return new PatientModel()
+                {
+                    Id = Int32.Parse(patientJson["resource"]["id"].ToString()),
+                    Name = patientJson["resource"]["name"].First()["text"].ToString(),
+                    NhsNumber = nhsNumber
+                };
             }
             catch (JsonReaderException j)
             {

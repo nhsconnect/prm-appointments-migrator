@@ -18,7 +18,7 @@ namespace GPConnectAdaptor.Patient
         public PatientLookupHttpClientWrapper(IJwtTokenGenerator tokenGenerator, bool isTest = false)
         {
             _tokenGenerator = tokenGenerator;
-            _uri =  ServiceConfig.GetSourceDomain(); //isTest ? "http://test.com" :
+            _uri =   ServiceConfig.GetSourceDomain(); //isTest ? "http://test.com" :
             FlurlHttp.ConfigureClient(_uri, cli =>
                 cli.Settings.HttpClientFactory = new UntrustedCertClientFactory());
         }

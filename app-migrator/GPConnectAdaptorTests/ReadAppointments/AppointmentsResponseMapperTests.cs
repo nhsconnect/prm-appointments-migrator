@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using FluentAssertions;
+using GPConnectAdaptor.Models.Patient;
 using GPConnectAdaptor.Models.ReadAppointments;
+using GPConnectAdaptor.Patient;
 using GPConnectAdaptor.ReadAppointments;
+using NSubstitute;
 using Xunit;
 
 namespace GPConnectAdaptorTests.ReadAppointments
@@ -51,13 +54,16 @@ namespace GPConnectAdaptorTests.ReadAppointments
                 LocationId = 17,
                 Practitioner = null,
                 PractitionerId = 2,
-                Patient = null,
+                Patient = "Mike MEAKIN",
                 PatientId = 2
             };
+
+            var mockLookup = Substitute.For<IPatientLookup>();
+            mockLookup.GetPatientById(2).Returns(new PatientModel() {Id = 2, Name = "Mike MEAKIN"});
             
             var sut = new AppointmentsResponseMapper();
 
-            var result = sut.Map(_files[0]);
+            var result = sut.Map(_files[0], mockLookup);
 
             result.Count.Should().Be(2);
             result[0].Should().BeEquivalentTo(expected);
@@ -66,9 +72,11 @@ namespace GPConnectAdaptorTests.ReadAppointments
         [Fact]
         public void Map_WhenNoAppointmentsFound_ReturnsNull()
         {
+            var mockLookup = Substitute.For<IPatientLookup>();
+            
             var sut = new AppointmentsResponseMapper();
 
-            var result = sut.Map(_files[1]);
+            var result = sut.Map(_files[1], mockLookup);
 
             result.Should().BeNull();
         }
@@ -76,9 +84,13 @@ namespace GPConnectAdaptorTests.ReadAppointments
         [Fact]
         public void Map_anothertest_ReturnsNull()
         {
+            var mockLookup = Substitute.For<IPatientLookup>();
+            mockLookup.GetPatientById(Arg.Any<int>())
+                .Returns(new PatientModel() {Id = 1, Name = "A B", NhsNumber = 101});
+            
             var sut = new AppointmentsResponseMapper();
 
-            var result = sut.Map(_files[2]);
+            var result = sut.Map(_files[2], mockLookup);
 
             result.Count.Should().Be(2);
         }

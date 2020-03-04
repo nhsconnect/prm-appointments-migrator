@@ -11,19 +11,19 @@ namespace Api.Controllers
     [Route("[controller]")]
     public class InitialiseDummyAppointmentsController : ControllerBase
     {
-        private readonly ILogger<AppointmentsController> _logger;
+        private readonly ILogger<BookAppointmentsController> _logger;
         private readonly IOrchestrator _orchestrator;
 
-        public InitialiseDummyAppointmentsController(ILogger<AppointmentsController> logger, IOrchestrator orchestrator)
+        public InitialiseDummyAppointmentsController(ILogger<BookAppointmentsController> logger, IOrchestrator orchestrator)
         {
             _logger = logger;
             _orchestrator = orchestrator;
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddAppointment([FromBody] BookAppointmentModel model)
+        public async Task<IActionResult> AddDummyAppointment([FromBody] BookAppointmentModel bookAppointment)
         {
-            var slotInfo = _orchestrator.GetSlotInfo(model, SourceTarget.Source);
+            var slotInfo = _orchestrator.GetSlotInfo(bookAppointment, SourceTarget.Source);
 
             var appointment = await _orchestrator.AddAppointment(await slotInfo, SourceTarget.Source);
             return new JsonResult(appointment);

@@ -16,8 +16,7 @@ namespace GPConnectAdaptorTests.ReadAppointments
     {
         private HttpTest _httpTest;
         private readonly ITestOutputHelper _output;
-        private readonly string _expectedUri = "http://test.com/Patient/2/Appointment?start=ge2020-03-01&start=le2020-03-02";
-
+        
         public ReadAppointmentsHttpClientWrapperTests(ITestOutputHelper output)
         {
             _httpTest = new HttpTest();
@@ -36,15 +35,15 @@ namespace GPConnectAdaptorTests.ReadAppointments
             var start = new DateTime(2020, 03, 01);
             var end = new DateTime(2020, 03, 02);
             var sut = new ReadAppointmentsHttpClientWrapper(mockTokenGenerator, new DateTimeGenerator(), true); // isTest = true
-
+        
             var result = await sut.GetAsync(start, end, patientId);
-
+        
             foreach (var call in this._httpTest.CallLog)
             {
                 _output.WriteLine(call.ToString());
             }
-
-            _httpTest.ShouldHaveCalled(_expectedUri)
+        
+            _httpTest.ShouldHaveMadeACall()
                 .WithHeader("accept", "application/fhir+json")
                 .WithHeader("Ssp-From", "200000000359")
                 .WithHeader("Ssp-To", "918999198993")

@@ -12,6 +12,7 @@
 
 # VSCode #
 .vscode
+**/.vs
 
 # NetBeans #
 nb-configuration.xml
@@ -43,3 +44,4 @@ context-gpconnect.xml
 
 **/bin
 **/obj
+**/

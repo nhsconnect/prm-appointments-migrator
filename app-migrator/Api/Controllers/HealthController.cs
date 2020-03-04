@@ -11,9 +11,9 @@ namespace Api.Controllers
     public class HealthController : ControllerBase
     {
 
-        private readonly ILogger<AppointmentsController> _logger;
+        private readonly ILogger<BookAppointmentsController> _logger;
 
-        public HealthController(ILogger<AppointmentsController> logger, IOrchestrator orchestrator)
+        public HealthController(ILogger<BookAppointmentsController> logger, IOrchestrator orchestrator)
         {
             _logger = logger;
         }

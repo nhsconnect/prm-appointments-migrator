@@ -6,10 +6,13 @@ using FluentAssertions;
 using GPConnectAdaptor;
 using GPConnectAdaptor.AddAppointment;
 using GPConnectAdaptor.Models.AddAppointment;
+using GPConnectAdaptor.Patient;
 using GPConnectAdaptor.Slots;
+using Hl7.Fhir.Model;
 using Newtonsoft.Json;
 using NSubstitute;
 using Xunit;
+using Task = System.Threading.Tasks.Task;
 
 namespace GPConnectAdaptorTests.AddAppointment
 {
@@ -21,7 +24,7 @@ namespace GPConnectAdaptorTests.AddAppointment
             "GPConnectAdaptorTests.TestData.AddAppointmentTestData.FailedAppointmentResponse.json";
         private Dictionary<string, string> _filePaths;
         private readonly Dictionary<string, string> _files = new Dictionary<string, string>();
-
+        
         public AddAppointmentClientTests()
         {
             PopulatePaths();
@@ -41,11 +44,11 @@ namespace GPConnectAdaptorTests.AddAppointment
                 }
             };
         }
-
+        
         private void PopulateResponses()
         {
-            var assembly = typeof(AddAppointmentResponseDeserializerTests).GetTypeInfo().Assembly;
-
+            var assembly = typeof(AppointmentBookedModelMapperTests).GetTypeInfo().Assembly;
+        
             foreach (var filePath in _filePaths)
             {
                 using (var stream = assembly.GetManifestResourceStream(filePath.Value))
@@ -59,11 +62,11 @@ namespace GPConnectAdaptorTests.AddAppointment
         }
         
         [Fact]
-        public void AddAppointment_WhenAppointmentAvailable_BooksAppointment()
+        public async Task AddAppointment_WhenAppointmentAvailable_BooksAppointment()
         {
             var mockTokenGenerator = Substitute.For<IJwtTokenGenerator>();
             mockTokenGenerator.GetToken(Scope.PatientWrite).Returns("token");
-
+        
             var mockRequestBuilder = Substitute.For<IAddAppointmentRequestBuilder>();
             mockRequestBuilder
                 .Build(
@@ -73,33 +76,38 @@ namespace GPConnectAdaptorTests.AddAppointment
                     new DateTime(2020, 02, 05, 10, 10, 00),
                     new DateTime(2020, 02, 05, 10, 20, 00))
                 .Returns(new AddAppointmentRequest());
-
+        
             var mockClient = Substitute.For<IAddAppointmentHttpClientWrapper>();
             mockClient.PostAsync(Arg.Any<string>()).Returns(_files["success"]);
-
-            var mockDeserializer = Substitute.For<IAddAppointmentResponseDeserializer>();
-            mockDeserializer.Deserialize(_files["success"]).Returns(JsonConvert.DeserializeObject<AddAppointmentResponse>(_files["success"]));
+        
+            var mockMapper = Substitute.For<IAppointmentBookedModelMapper>();
+            IPatientLookup mockPatientLookup = Substitute.For<IPatientLookup>();
+            mockMapper.Map(_files["success"], mockPatientLookup).Returns(new AppointmentBookedModel()
+            {
+                Description = "yippee"
+            });
             
-            var sut = new AddAppointmentClient(mockTokenGenerator, mockRequestBuilder, mockClient, mockDeserializer);
-
-            var result = sut.AddAppointment("1",
+            var sut = new AddAppointmentClient(mockTokenGenerator, mockRequestBuilder, mockClient, mockMapper);
+        
+            var result = await sut.AddAppointment("1",
                 "2",
                 "1",
                 new DateTime(2020, 02, 05, 10, 10, 00),
                 new DateTime(2020, 02, 05, 10, 20, 00),
-                SourceTarget.Target);
-
+                SourceTarget.Target,
+                mockPatientLookup);
+        
             result.Should().NotBeNull();
-            result.Result.description.Should()
-                .BeEquivalentTo("A test appointment booked through Interactive Swagger API");
+            result.Description.Should()
+                .BeEquivalentTo("yippee");
         }
         
         [Fact]
-        public void AddAppointment_WhenAppointmentNotAvailable_ReturnsOutcome()
+        public async Task AddAppointment_WhenAppointmentFailsToBook_BooksAppointment()
         {
             var mockTokenGenerator = Substitute.For<IJwtTokenGenerator>();
             mockTokenGenerator.GetToken(Scope.PatientWrite).Returns("token");
-
+        
             var mockRequestBuilder = Substitute.For<IAddAppointmentRequestBuilder>();
             mockRequestBuilder
                 .Build(
@@ -109,24 +117,31 @@ namespace GPConnectAdaptorTests.AddAppointment
                     new DateTime(2020, 02, 05, 10, 10, 00),
                     new DateTime(2020, 02, 05, 10, 20, 00))
                 .Returns(new AddAppointmentRequest());
-
+        
             var mockClient = Substitute.For<IAddAppointmentHttpClientWrapper>();
             mockClient.PostAsync(Arg.Any<string>()).Returns(_files["fail"]);
-
-            var mockDeserializer = Substitute.For<IAddAppointmentResponseDeserializer>();
-            mockDeserializer.Deserialize(_files["fail"]).Returns(JsonConvert.DeserializeObject<AddAppointmentResponse>(_files["fail"]));
+        
+            var mockMapper = Substitute.For<IAppointmentBookedModelMapper>();
+            IPatientLookup mockPatientLookup = Substitute.For<IPatientLookup>();
+            mockMapper.Map(_files["fail"], mockPatientLookup).Returns(new AppointmentBookedModel()
+            {
+                Success = false,
+                Error = "ohnoes"
+            });
             
-            var sut = new AddAppointmentClient(mockTokenGenerator, mockRequestBuilder, mockClient, mockDeserializer);
-
-            var result = sut.AddAppointment("1",
+            var sut = new AddAppointmentClient(mockTokenGenerator, mockRequestBuilder, mockClient, mockMapper);
+        
+            var result = await sut.AddAppointment("1",
                 "2",
                 "1",
                 new DateTime(2020, 02, 05, 10, 10, 00),
                 new DateTime(2020, 02, 05, 10, 20, 00),
-                SourceTarget.Target);
-
+                SourceTarget.Target,
+                mockPatientLookup);
+        
             result.Should().NotBeNull();
-            result.Result.resourceType.Should().BeEquivalentTo("OperationOutcome");
+            result.Success.Should().BeFalse();
+            result.Error.Should().BeEquivalentTo("ohnoes");
         }
     }
 }

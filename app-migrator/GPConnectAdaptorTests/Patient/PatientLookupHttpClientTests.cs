@@ -32,15 +32,15 @@ namespace GPConnectAdaptorTests.Patient
             
             _httpTest.RespondWith("abcd");
             var sut = new PatientLookupHttpClientWrapper(mockTokenGenerator, true);
-
+        
             var result = await sut.GetAsync(9658218873);
-
+        
             foreach (var call in this._httpTest.CallLog)
             {
                 _output.WriteLine(call.ToString());
             }
-
-            _httpTest.ShouldHaveCalled(_expectedUri)
+        
+            _httpTest.ShouldHaveMadeACall()
                 .WithHeader("accept", "application/fhir+json")
                 .WithHeader("Ssp-From", "200000000359")
                 .WithHeader("Ssp-To", "918999198993")

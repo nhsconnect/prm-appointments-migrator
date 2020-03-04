@@ -51,7 +51,7 @@ namespace Api
             services.AddScoped<IAddAppointmentHttpClientWrapper, AddAppointmentHttpClientWrapper>();
             services.AddScoped<IAddAppointmentRequestBuilder, AddAppointmentRequestBuilder>();
             services.AddScoped<IAddAppointmentRequestDeserializer, AddAppointmentRequestDeserializer>();
-            services.AddScoped<IAddAppointmentResponseDeserializer, AddAppointmentResponseDeserializer>();
+            services.AddScoped<IAppointmentBookedModelMapper, AppointmentBookedModelMapper>();
             
             // patient
             services.AddScoped<IPatientLookupHttpClientWrapper, PatientLookupHttpClientWrapper>();
@@ -72,7 +72,16 @@ namespace Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
+            
+            app.UseCors(
+                options => 
+                    options
+                        .SetIsOriginAllowed(x => _ = true)
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials()
+            );
 
             app.UseRouting();
 

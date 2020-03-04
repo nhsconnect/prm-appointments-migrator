@@ -23,36 +23,34 @@ namespace GPConnectAdaptor.Slots
         {
             _tokenGenerator = tokenGenerator;
             _dateTimeGenerator = dateTimeGenerator;
-            _uri = isTest ? "http://test.com" : ServiceConfig.GetTargetDomain();
+            _uri =  ServiceConfig.GetTargetDomain(); //isTest ? "http://test.com" :
             FlurlHttp.ConfigureClient(_uri, cli =>
                 cli.Settings.HttpClientFactory = new UntrustedCertClientFactory());
         }
 
         public async Task<string> GetSlotsHttp(DateTime start, DateTime end, SourceTarget sourceTarget = SourceTarget.Target)
         {
-            if (sourceTarget == SourceTarget.Source)
-            {
-                _uri = ServiceConfig.GetSourceDomain();
-            }
-            
-            var client = SetHeadersAndQueryParam(start, end);
-
             try
             {
-                return await client.GetStringAsync();
+                if (sourceTarget == SourceTarget.Source)
+                {
+                    _uri = ServiceConfig.GetSourceDomain();
+                }
+            
+                var client = SetHeadersAndQueryParam(start, end);
+                
+                var test =  await client.GetStringAsync();
+
+                return test;
             }
             catch (FlurlHttpException f)
             {
-                dynamic obj = await f.GetResponseJsonAsync();
-                var dict = (IDictionary<string, object>)obj;
-                if (dict["resourceType"].Equals("OperationOutcome"))
-                {
-                    var issue = (IList<object>) dict["issue"];
-                    var parsedIssue = (IDictionary<string, object>) issue[0];
-                    throw new Exception($"Unable to get slots. Call failed with '{parsedIssue["diagnostics"].ToString()}'");
-                }
-                
                 throw new Exception($"Unable to receive Slots. Unidentified Error");
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception($"Unsuccessful call for finding slots");
             }
         }
 

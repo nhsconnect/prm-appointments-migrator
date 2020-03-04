@@ -10,8 +10,11 @@ namespace GPConnectAdaptor
 {
     public interface IOrchestrator
     {
-        Task<AddAppointmentResponse> AddAppointment(AddAppointmentCriteria criteria, SourceTarget source = SourceTarget.Target);
+        Task<AppointmentBookedModel> AddAppointment(AddAppointmentCriteria criteria,
+            SourceTarget source = SourceTarget.Target);
+        Task<AddAppointmentCriteria> GetSlotInfo(Appointment model, SourceTarget sourceTarget = SourceTarget.Target);
         Task<AddAppointmentCriteria> GetSlotInfo(BookAppointmentModel model, SourceTarget sourceTarget = SourceTarget.Target);
-        Task<List<Appointment>> GetFutureAppointments(List<long> nhsNumbers);
+        Task<List<Appointment>> GetFutureAppointments();
+        Task<List<AddAppointmentResponse>> TransferAppointments(List<Appointment> model);
     }
 }

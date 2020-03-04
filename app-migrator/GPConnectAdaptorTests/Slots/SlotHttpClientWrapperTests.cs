@@ -14,9 +14,7 @@ namespace GPConnectAdaptorTests.Slots
     {
         private HttpTest _httpTest;
         private readonly ITestOutputHelper _output;
-        private readonly string _expectedUri =
-            "http://test.com/Slot?start=ge2020-02-08T10%3A00%3A00%2B00%3A00&end=le2020-02-08T10%3A10%3A00%2B00%3A00&status=free&_include=Slot%3Aschedule&_include%3Arecurse=Schedule%3Aactor%3APractitioner&searchFilter=https%3A%2F%2Ffhir.nhs.uk%2FSTU3%2FCodeSystem%2FGPConnect-OrganisationType-1%7Cgp-practice";
-
+        
         public SlotHttpClientWrapperTests(ITestOutputHelper output)
         {
             _httpTest = new HttpTest();
@@ -34,15 +32,15 @@ namespace GPConnectAdaptorTests.Slots
             var start = new DateTime(2020, 02, 08, 10, 00, 00);
             var end = new DateTime(2020, 02, 08, 10, 10, 00);
             var sut = new SlotHttpClientWrapper(mockTokenGenerator, new DateTimeGenerator(), true); // isTest = true
-
+        
             var result = await sut.GetSlotsHttp(start, end);
-
+        
             foreach (var call in this._httpTest.CallLog)
             {
                 _output.WriteLine(call.ToString());
             }
-
-            _httpTest.ShouldHaveCalled(_expectedUri)
+        
+            _httpTest.ShouldHaveMadeACall()
                 .WithHeader("Ssp-TraceID", "09a01679-2564-0fb4-5129-aecc81ea2706")
                 .WithOAuthBearerToken("token")
                 .Times(1);

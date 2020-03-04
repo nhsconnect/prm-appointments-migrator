@@ -28,19 +28,19 @@ namespace GPConnectAdaptorTests.AddAppointment
             mockTokenGenerator.GetToken(Scope.PatientWrite).Returns("token");
             var mockRequestBody = "{\"hello\" : \"hello\"}";
             _httpTest.RespondWith("{\"aha!\" : \"aha!\"}");
-
+        
             var sut = new AddAppointmentHttpClientWrapper(mockTokenGenerator, true);
-
+        
             var result = await sut.PostAsync(mockRequestBody);
-
+        
             foreach (var call in this._httpTest.CallLog)
             {
                 _output.WriteLine(call.ToString());
             }
-
+        
             _httpTest.ShouldHaveMadeACall();
-
-            _httpTest.ShouldHaveCalled(_expectedUri)
+        
+            _httpTest.ShouldHaveMadeACall()
                 .WithRequestBody("{\"hello\" : \"hello\"}")
                 .WithHeader("Ssp-TraceID", "09a01679-2564-0fb4-5129-aecc81ea2706")
                 .WithHeader("Ssp-From", "200000000359")

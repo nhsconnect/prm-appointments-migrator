@@ -1,15 +1,17 @@
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using FluentAssertions;
-using GPConnectAdaptor;
 using GPConnectAdaptor.AddAppointment;
+using GPConnectAdaptor.Models.Patient;
+using GPConnectAdaptor.Patient;
+using Hl7.Fhir.Model;
+using NSubstitute;
 using Xunit;
 
-namespace GPConnectAdaptorTests
+namespace GPConnectAdaptorTests.AddAppointment
 {
-    public class AddAppointmentResponseDeserializerTests
+    public class AppointmentBookedModelMapperTests
     {
         private readonly string _appointmentSuccessPath =
             "GPConnectAdaptorTests.TestData.AddAppointmentTestData.AppointmentResponse.json";
@@ -19,11 +21,13 @@ namespace GPConnectAdaptorTests
             "GPConnectAdaptorTests.TestData.AddAppointmentTestData.FailedAppointmentResponse.json";
         private Dictionary<string, string> _filePaths;
         private readonly Dictionary<string, string> _files = new Dictionary<string, string>();
+        private readonly IPatientLookup _mockPatientsLookup;
 
-        public AddAppointmentResponseDeserializerTests()
+        public AppointmentBookedModelMapperTests()
         {
             PopulatePaths();
             PopulateResponses();
+            _mockPatientsLookup = Substitute.For<IPatientLookup>();
         }
         
         [Fact]
@@ -31,40 +35,29 @@ namespace GPConnectAdaptorTests
         {
             var response = _files["success"];
             
-            var sut = new AddAppointmentResponseDeserializer();
+            var sut = new AppointmentBookedModelMapper();
 
-            var result = sut.Deserialize(response);
+            _mockPatientsLookup.GetPatientById(2).Returns(new PatientModel()
+                {Id = 2, Name = "Wibble WOBBLE", NhsNumber = 999999999});
 
-            result.Should().NotBeNull();
-            result.resourceType.Should().BeEquivalentTo("Appointment");
-
-        }
-        
-        [Fact]
-        public void Deserialize_WhenAppointmentBookingFail_ParsesIntoAppointmentResponse()
-        {
-            var response = _files["fail"];
-            
-            var sut = new AddAppointmentResponseDeserializer();
-
-            var result = sut.Deserialize(response);
+            var result = sut.Map(response, _mockPatientsLookup);
 
             result.Should().NotBeNull();
-            result.resourceType.Should().BeEquivalentTo("OperationOutcome");
-
+            result.Patient.Should().BeEquivalentTo("Wibble WOBBLE");
+            result.Description.Should().BeEquivalentTo("A test appointment booked through Interactive Swagger API");
         }
-        
+
         [Fact]
         public void Deserialize_WhenJwtFails_ParsesIntoAppointmentResponse()
         {
             var response = _files["fail"];
             
-            var sut = new AddAppointmentResponseDeserializer();
-
-            var result = sut.Deserialize(response);
+            var sut = new AppointmentBookedModelMapper();
+            
+            
+            var result = sut.Map(response, _mockPatientsLookup);
 
             result.Should().NotBeNull();
-            result.resourceType.Should().BeEquivalentTo("OperationOutcome");
 
         }
         
@@ -86,7 +79,7 @@ namespace GPConnectAdaptorTests
 
         private void PopulateResponses()
         {
-            var assembly = typeof(AddAppointmentResponseDeserializerTests).GetTypeInfo().Assembly;
+            var assembly = typeof(AppointmentBookedModelMapperTests).GetTypeInfo().Assembly;
 
             foreach (var filePath in _filePaths)
             {

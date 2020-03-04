@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GPConnectAdaptor.AddAppointment;
 using GPConnectAdaptor.Models.AddAppointment;
 using GPConnectAdaptor.Models.ReadAppointments;
 using GPConnectAdaptor.Models.Slot;
@@ -27,8 +28,13 @@ namespace GPConnectAdaptor
             _readAppointmentsClient = readAppointmentsClient;
         }
         
-        public async Task<AddAppointmentResponse> AddAppointment(AddAppointmentCriteria criteria, SourceTarget sourceTarget = SourceTarget.Target)
+        public async Task<AppointmentBookedModel> AddAppointment(AddAppointmentCriteria criteria, SourceTarget sourceTarget = SourceTarget.Target)
         {
+            if (!_patientLookup.IsInitialized())
+            {
+                await _patientLookup.Initialize();
+            }
+            
             try
             {
                 return await _addAppointmentClient.AddAppointment(
@@ -37,7 +43,8 @@ namespace GPConnectAdaptor
                     criteria.LocationId,
                     criteria.Start, 
                     criteria.End,
-                    sourceTarget);
+                    sourceTarget,
+                    _patientLookup);
             }
             catch (Exception e)
             {
@@ -46,15 +53,20 @@ namespace GPConnectAdaptor
             
         }
         
-        public async Task<AddAppointmentCriteria> GetSlotInfo(BookAppointmentModel model, SourceTarget sourceTarget = SourceTarget.Target)
+        public async Task<AddAppointmentCriteria> GetSlotInfo(Appointment sourceAppointment, SourceTarget sourceTarget = SourceTarget.Target)
         {
+            if (!_patientLookup.IsInitialized())
+            {
+                await _patientLookup.Initialize();
+            }
+            
             SlotResponse slots;
             Resource slot;
 
             try
             {
-                slots =  await _slotClient.GetSlots(model.Start, model.End, sourceTarget);
-                slot = FindSlot(model, slots);
+                slots =  await _slotClient.GetSlots(sourceAppointment.Start, sourceAppointment.End, sourceTarget);
+                slot = FindSlot(sourceAppointment, slots);
             }
             catch (ArgumentNullException e)
             { 
@@ -66,7 +78,7 @@ namespace GPConnectAdaptor
 
             return new AddAppointmentCriteria()
             {
-                PatientId = model.PatientId,
+                PatientId = sourceAppointment.PatientId.ToString(),
                 LocationId = locationId,
                 SlotReference = slot.id,
                 Start = slot.start ?? new DateTime(),
@@ -74,15 +86,52 @@ namespace GPConnectAdaptor
             };
         }
         
-        public async Task<List<Appointment>> GetFutureAppointments(List<long> nhsNumbers)
+        public async Task<AddAppointmentCriteria> GetSlotInfo(BookAppointmentModel model, SourceTarget sourceTarget = SourceTarget.Target)
         {
+            if (!_patientLookup.IsInitialized())
+            {
+                await _patientLookup.Initialize();
+            }
+            
+            SlotResponse slots;
+            Resource slot;
+
+            try
+            {
+                slots =  await _slotClient.GetSlots(model.Start, model.End, sourceTarget);
+                slot = FindSlot(model, slots);
+            }
+            catch (Exception e)
+            { 
+                throw new Exception("No Slots found for this time");
+            }
+
+            var scheduleId = slot.schedule.reference.Substring(9); 
+            var locationId = GetLocationId(slots, scheduleId);
+
+            return new AddAppointmentCriteria()
+            {
+                PatientId = model.PatientId.ToString(),
+                LocationId = locationId,
+                SlotReference = slot.id,
+                Start = slot.start ?? new DateTime(),
+                End = slot.end ?? new DateTime()
+            };
+        }
+        
+        public async Task<List<Appointment>> GetFutureAppointments()
+        {
+            if (!_patientLookup.IsInitialized())
+            {
+                await _patientLookup.Initialize();
+            }
+            
             var appointments = new List<Appointment>();
-            await _patientLookup.Initialize(nhsNumbers);
             var patientIds = _patientLookup.GetPatientIds();
 
             foreach (var patientId in patientIds)
             {
-                var appointmentsToAdd = await _readAppointmentsClient.GetFutureAppointments(patientId);
+                var appointmentsToAdd = await _readAppointmentsClient.GetFutureAppointments(patientId, _patientLookup);
                 if (appointmentsToAdd != null && appointmentsToAdd.Count > 0)
                 {
                     appointments.AddRange(appointmentsToAdd);
@@ -90,6 +139,11 @@ namespace GPConnectAdaptor
             }
 
             return appointments;
+        }
+
+        public Task<List<AddAppointmentResponse>> TransferAppointments(List<Appointment> model)
+        {
+            throw new NotImplementedException();
         }
 
         private static string GetLocationId(SlotResponse slots, string scheduleId)
@@ -101,6 +155,16 @@ namespace GPConnectAdaptor
             return locationId;
         }
 
+        private static Resource FindSlot(Appointment model, SlotResponse slots)
+        {
+            return slots.entry
+                .Select(e => e.resource)
+                .Where(r => r.resourceType == "Slot")
+                .First(s =>
+                    s.start >= model.Start.Subtract(new TimeSpan(0, 0, 1)) &&
+                    s.end <= model.End.AddSeconds(1));
+        }
+        
         private static Resource FindSlot(BookAppointmentModel model, SlotResponse slots)
         {
             return slots.entry
@@ -121,7 +185,6 @@ namespace GPConnectAdaptor
         public DateTime End { get; set; }
     }
     
-
     public class BookAppointmentModel
     {
         public string PatientId { get; set; }
@@ -132,4 +195,7 @@ namespace GPConnectAdaptor
         
         public string PractitionerId { get; set; }
     }
+    
+
+
 }

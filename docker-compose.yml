@@ -28,6 +28,8 @@ services:
       - gpconnect-db1
     depends_on:
       - gpconnect-db1
+    ports: 
+      - 19191:19191
   migrator:
     build:
       context: ./app-migrator
@@ -39,9 +41,10 @@ services:
     networks:
       - gpconnect-network
     environment:
-      - demonstrator1=gpconnect-api1
-      - demonstrator2=gpconnect-api2
-      - demonstratorport=19191
+      - demonstrator1=localhost
+      - demonstrator2=localhost
+      - demonstratorport1=19191
+      - demonstratorport2=19192
       - VERSION=0.1.0
     volumes:
       - ./app-migrator:/app:delegated
@@ -74,6 +77,8 @@ services:
       - gpconnect-db2
     depends_on:
       - gpconnect-db2
+    ports: 
+      - 19192:19191
   gpconnect-db2:
     image: mariadb
     networks:

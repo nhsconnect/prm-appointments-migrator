@@ -17,7 +17,7 @@ namespace GPConnectAdaptor.AddAppointment
         public AddAppointmentHttpClientWrapper(IJwtTokenGenerator tokenGenerator, bool isTest = false)
         {
             _tokenGenerator = tokenGenerator;
-            _uri = isTest ? "http://test.com" : ServiceConfig.GetTargetDomain();
+            _uri = ServiceConfig.GetTargetDomain(); //isTest ? "http://test.com" :;
             FlurlHttp.ConfigureClient(_uri, cli =>
                 cli.Settings.HttpClientFactory = new UntrustedCertClientFactory());
         }
