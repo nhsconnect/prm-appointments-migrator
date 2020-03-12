@@ -1,4 +1,79 @@
-export const mockFindAppointments =  [
+export const parthAppointments = [
+    {
+        "patient": null,
+        "patientId": 1,
+        "slot": null,
+        "start": "2020-03-03T14:20:00",
+        "end": "2020-03-03T14:30:00",
+        "location": null,
+        "locationId": 16,
+        "practitioner": null,
+        "practitionerId": 1,
+        "description": "A test appointment booked through Interactive Swagger API"
+    },
+    {
+        "patient": null,
+        "patientId": 2,
+        "slot": null,
+        "start": "2020-03-03T09:00:00",
+        "end": "2020-03-03T09:10:00",
+        "location": null,
+        "locationId": 17,
+        "practitioner": null,
+        "practitionerId": 2,
+        "description": "A appointment to discuss test data"
+    },
+    {
+        "patient": null,
+        "patientId": 2,
+        "slot": null,
+        "start": "2020-03-03T09:10:00",
+        "end": "2020-03-03T09:20:00",
+        "location": null,
+        "locationId": 17,
+        "practitioner": null,
+        "practitionerId": 2,
+        "description": "A follow-up appointment for tests."
+    },
+    {
+        "patient": null,
+        "patientId": 2,
+        "slot": null,
+        "start": "2020-03-03T11:20:00",
+        "end": "2020-03-03T11:30:00",
+        "location": null,
+        "locationId": 16,
+        "practitioner": null,
+        "practitionerId": 1,
+        "description": "A test appointment booked through Interactive Swagger API"
+    },
+    {
+        "patient": null,
+        "patientId": 2,
+        "slot": null,
+        "start": "2020-03-03T11:20:00",
+        "end": "2020-03-03T11:30:00",
+        "location": null,
+        "locationId": 16,
+        "practitioner": null,
+        "practitionerId": 1,
+        "description": "A test appointment booked through Interactive Swagger API"
+    },
+    {
+        "patient": null,
+        "patientId": 3,
+        "slot": null,
+        "start": "2020-03-03T14:20:00",
+        "end": "2020-03-03T14:30:00",
+        "location": null,
+        "locationId": 16,
+        "practitioner": null,
+        "practitionerId": 1,
+        "description": "A test appointment booked through Interactive Swagger API"
+    }
+];
+
+export const mockFindAppointments = [
     {
         description: 'A appointment to discuss test data.',
         start: '2020-02-13T09:00:00+00:00',
