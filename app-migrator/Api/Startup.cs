@@ -34,7 +34,7 @@ namespace Api
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
             
-            // Serviceconfig
+            // serviceconfig
             services.AddScoped<IServiceConfig, ServiceConfig>();
 
                 // common
