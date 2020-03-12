@@ -41,4 +41,8 @@
       <Compile Remove="Models\Slot\ValueCodeableConcept.cs" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Location" />
+    </ItemGroup>
+
 </Project>

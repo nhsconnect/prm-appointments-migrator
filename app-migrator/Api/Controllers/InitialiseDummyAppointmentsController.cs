@@ -23,9 +23,9 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<IActionResult> AddDummyAppointment([FromBody] BookAppointmentModel bookAppointment)
         {
-            var slotInfo = _orchestrator.GetSlotInfo(bookAppointment, SourceTarget.Source);
+            var slot = _orchestrator.GetSlotInfo(bookAppointment, SourceTarget.Source);
 
-            var appointment = await _orchestrator.AddAppointment(await slotInfo, SourceTarget.Source);
+            var appointment = await _orchestrator.AddAppointment(await slot, bookAppointment.PatientId, SourceTarget.Source);
             return new JsonResult(appointment);
         }
     }

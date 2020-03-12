@@ -32,9 +32,9 @@ namespace Api.Controllers
             {
                 try
                 {
-                    var addAppointmentCriteria = _orchestrator.GetSlotInfo(sourceAppointment);
+                    var slot = _orchestrator.GetSlotInfo(sourceAppointment);
 
-                    var bookedAppointment = await _orchestrator.AddAppointment(await addAppointmentCriteria);
+                    var bookedAppointment = await _orchestrator.AddAppointment(await slot, sourceAppointment.PatientId.ToString());
                 
                     bookedAppointments.Add(bookedAppointment);
 

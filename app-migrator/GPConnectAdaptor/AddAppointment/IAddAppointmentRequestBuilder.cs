@@ -1,8 +1,7 @@
 using System;
-using GPConnectAdaptor.Models;
 using GPConnectAdaptor.Models.AddAppointment;
 
-namespace GPConnectAdaptor
+namespace GPConnectAdaptor.AddAppointment
 {
     public interface IAddAppointmentRequestBuilder
     {

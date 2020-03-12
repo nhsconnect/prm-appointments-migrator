@@ -6,6 +6,7 @@ using FluentAssertions;
 using GPConnectAdaptor;
 using GPConnectAdaptor.AddAppointment;
 using GPConnectAdaptor.Models.AddAppointment;
+using GPConnectAdaptor.Models.Slot;
 using GPConnectAdaptor.Patient;
 using GPConnectAdaptor.Slots;
 using Hl7.Fhir.Model;
@@ -89,11 +90,13 @@ namespace GPConnectAdaptorTests.AddAppointment
             
             var sut = new AddAppointmentClient(mockTokenGenerator, mockRequestBuilder, mockClient, mockMapper);
         
-            var result = await sut.AddAppointment("1",
-                "2",
-                "1",
-                new DateTime(2020, 02, 05, 10, 10, 00),
-                new DateTime(2020, 02, 05, 10, 20, 00),
+            var result = await sut.AddAppointment(new SlotModel()
+                {
+                    Id = "1",
+                    LocationId = "1",
+                    Start = new DateTime(2020, 02, 05, 10, 10, 00),
+                    End = new DateTime(2020, 02, 05, 10, 20, 00)
+                }, "2",
                 SourceTarget.Target,
                 mockPatientLookup);
         
@@ -131,11 +134,13 @@ namespace GPConnectAdaptorTests.AddAppointment
             
             var sut = new AddAppointmentClient(mockTokenGenerator, mockRequestBuilder, mockClient, mockMapper);
         
-            var result = await sut.AddAppointment("1",
-                "2",
-                "1",
-                new DateTime(2020, 02, 05, 10, 10, 00),
-                new DateTime(2020, 02, 05, 10, 20, 00),
+            var result = await sut.AddAppointment(new SlotModel()
+                {
+                    Id = "1",
+                    LocationId = "1",
+                    Start = new DateTime(2020, 02, 05, 10, 10, 00),
+                    End = new DateTime(2020, 02, 05, 10, 20, 00)
+                }, "2",
                 SourceTarget.Target,
                 mockPatientLookup);
         

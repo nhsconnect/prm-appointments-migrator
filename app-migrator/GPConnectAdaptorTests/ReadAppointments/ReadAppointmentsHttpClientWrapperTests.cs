@@ -16,11 +16,14 @@ namespace GPConnectAdaptorTests.ReadAppointments
     {
         private HttpTest _httpTest;
         private readonly ITestOutputHelper _output;
-        
+        private IServiceConfig _serviceConfig;
+
         public ReadAppointmentsHttpClientWrapperTests(ITestOutputHelper output)
         {
             _httpTest = new HttpTest();
-            
+            _serviceConfig = Substitute.For<IServiceConfig>();
+            _serviceConfig.GetSourceDomain().Returns("https://www.test.com");
+
             this._output = output;
         }
 
@@ -34,7 +37,7 @@ namespace GPConnectAdaptorTests.ReadAppointments
             var patientId = 2;
             var start = new DateTime(2020, 03, 01);
             var end = new DateTime(2020, 03, 02);
-            var sut = new ReadAppointmentsHttpClientWrapper(mockTokenGenerator, new DateTimeGenerator(), true); // isTest = true
+            var sut = new ReadAppointmentsHttpClientWrapper(mockTokenGenerator, new DateTimeGenerator(), _serviceConfig); 
         
             var result = await sut.GetAsync(start, end, patientId);
         

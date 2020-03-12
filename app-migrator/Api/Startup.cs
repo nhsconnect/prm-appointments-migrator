@@ -44,7 +44,8 @@ namespace Api
             // slots
             services.AddScoped<ISlotClient, SlotClient>();
             services.AddScoped<ISlotHttpClientWrapper, SlotHttpClientWrapper>();
-            services.AddScoped<ISlotResponseDeserializer, SlotResponseDeserializer>();
+            services.AddScoped<ISlotModelMapper, SlotModelMapper>();
+            services.AddScoped<ISlotRetriever, SlotRetriever>();
             
             // add appointment
             services.AddScoped<IAddAppointmentClient, AddAppointmentClient>();

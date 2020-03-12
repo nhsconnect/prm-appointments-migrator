@@ -9,7 +9,6 @@ namespace GPConnectAdaptor.Slots
 {
     public class SlotHttpClientWrapper : ISlotHttpClientWrapper
     {
-        private  string _uri;
         private readonly string _searchFilter =
             "https://fhir.nhs.uk/STU3/CodeSystem/GPConnect-OrganisationType-1|gp-practice";
         private readonly string _traceId = "09a01679-2564-0fb4-5129-aecc81ea2706";
@@ -18,26 +17,27 @@ namespace GPConnectAdaptor.Slots
         private readonly string _sdsInteractionId = "urn:nhs:names:services:gpconnect:fhir:rest:search:slot-1";
         private readonly IJwtTokenGenerator _tokenGenerator;
         private readonly IDateTimeGenerator _dateTimeGenerator;
+        private readonly IServiceConfig _serviceConfig;
 
-        public SlotHttpClientWrapper(IJwtTokenGenerator tokenGenerator, IDateTimeGenerator dateTimeGenerator, bool isTest = false)
+        public SlotHttpClientWrapper(IJwtTokenGenerator tokenGenerator, IDateTimeGenerator dateTimeGenerator, IServiceConfig serviceConfig)
         {
             _tokenGenerator = tokenGenerator;
             _dateTimeGenerator = dateTimeGenerator;
-            _uri =  ServiceConfig.GetTargetDomain(); //isTest ? "http://test.com" :
-            FlurlHttp.ConfigureClient(_uri, cli =>
-                cli.Settings.HttpClientFactory = new UntrustedCertClientFactory());
+            _serviceConfig = serviceConfig;
         }
 
         public async Task<string> GetSlotsHttp(DateTime start, DateTime end, SourceTarget sourceTarget = SourceTarget.Target)
         {
             try
             {
-                if (sourceTarget == SourceTarget.Source)
-                {
-                    _uri = ServiceConfig.GetSourceDomain();
-                }
+                var uri = sourceTarget == SourceTarget.Source
+                    ? _serviceConfig.GetSourceDomain()
+                    : _serviceConfig.GetTargetDomain();
+                
+                FlurlHttp.ConfigureClient(uri, cli =>
+                    cli.Settings.HttpClientFactory = new UntrustedCertClientFactory());
             
-                var client = SetHeadersAndQueryParam(start, end);
+                var client = SetHeadersAndQueryParam(start, end, uri);
                 
                 var test =  await client.GetStringAsync();
 
@@ -54,9 +54,9 @@ namespace GPConnectAdaptor.Slots
             }
         }
 
-        private IFlurlRequest SetHeadersAndQueryParam(DateTime start, DateTime end)
+        private IFlurlRequest SetHeadersAndQueryParam(DateTime start, DateTime end, string uri)
         {
-            return _uri
+            return uri
                 .AppendPathSegment("/Slot")
                 .WithHeaders(new
                 {
@@ -82,6 +82,6 @@ namespace GPConnectAdaptor.Slots
     public enum SourceTarget
     {
         Source,
-        Target
+        Target,
     }
 }

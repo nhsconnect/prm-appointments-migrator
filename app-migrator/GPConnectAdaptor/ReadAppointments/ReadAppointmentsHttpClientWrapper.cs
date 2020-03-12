@@ -10,6 +10,7 @@ namespace GPConnectAdaptor.ReadAppointments
     {
         
         private readonly string _uri;
+        private readonly IServiceConfig _serviceConfig;
         private readonly string _traceId = "09a01679-2564-0fb4-5129-aecc81ea2706";
         private readonly string _consumerAsid = "200000000359";
         private readonly string _providerAsid = "918999198993";
@@ -17,11 +18,12 @@ namespace GPConnectAdaptor.ReadAppointments
         private readonly IJwtTokenGenerator _tokenGenerator;
         private readonly IDateTimeGenerator _dateTimeGenerator;
 
-        public ReadAppointmentsHttpClientWrapper(IJwtTokenGenerator tokenGenerator, IDateTimeGenerator dateTimeGenerator, bool isTest = false)
+        public ReadAppointmentsHttpClientWrapper(IJwtTokenGenerator tokenGenerator, IDateTimeGenerator dateTimeGenerator, IServiceConfig serviceConfig)
         {
             _tokenGenerator = tokenGenerator;
             _dateTimeGenerator = dateTimeGenerator;
-            _uri =   ServiceConfig.GetSourceDomain(); //isTest ? "http://test.com" :
+            _serviceConfig = serviceConfig;
+            _uri = _serviceConfig.GetSourceDomain();
             FlurlHttp.ConfigureClient(_uri, cli =>
                 cli.Settings.HttpClientFactory = new UntrustedCertClientFactory());
         }

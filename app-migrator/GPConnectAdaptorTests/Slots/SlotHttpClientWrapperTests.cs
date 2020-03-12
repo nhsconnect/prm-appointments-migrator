@@ -14,12 +14,16 @@ namespace GPConnectAdaptorTests.Slots
     {
         private HttpTest _httpTest;
         private readonly ITestOutputHelper _output;
-        
+        private readonly IServiceConfig _serviceConfig;
+
         public SlotHttpClientWrapperTests(ITestOutputHelper output)
         {
             _httpTest = new HttpTest();
             
             this._output = output;
+            _serviceConfig = Substitute.For<IServiceConfig>();
+            _serviceConfig.GetSourceDomain().Returns("https://www.test.com");
+            _serviceConfig.GetTargetDomain().Returns("https://www.test.com");
         }
 
         [Fact]
@@ -31,7 +35,7 @@ namespace GPConnectAdaptorTests.Slots
             _httpTest.RespondWith("abcd");
             var start = new DateTime(2020, 02, 08, 10, 00, 00);
             var end = new DateTime(2020, 02, 08, 10, 10, 00);
-            var sut = new SlotHttpClientWrapper(mockTokenGenerator, new DateTimeGenerator(), true); // isTest = true
+            var sut = new SlotHttpClientWrapper(mockTokenGenerator, new DateTimeGenerator(), _serviceConfig); // isTest = true
         
             var result = await sut.GetSlotsHttp(start, end);
         

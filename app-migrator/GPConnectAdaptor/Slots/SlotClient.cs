@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GPConnectAdaptor.Models.Slot;
@@ -9,19 +10,20 @@ namespace GPConnectAdaptor.Slots
     public class SlotClient : Slots.ISlotClient
     {
         private readonly ISlotHttpClientWrapper _clientWrapper;
-        private readonly Slots.ISlotResponseDeserializer _deserializer;
+        private readonly ISlotModelMapper _mapper;
 
-        public SlotClient(ISlotHttpClientWrapper clientWrapper, Slots.ISlotResponseDeserializer deserializer)
+        public SlotClient(ISlotHttpClientWrapper clientWrapper, ISlotModelMapper mapper)
         {
             _clientWrapper = clientWrapper;
-            _deserializer = deserializer;
+            _mapper = mapper;
         } 
-        public async Task<SlotResponse> GetSlots(DateTime start, DateTime end, SourceTarget sourceTarget = SourceTarget.Target)
+        public async Task<List<SlotModel>> GetSlots(DateTime start, DateTime end,
+            SourceTarget sourceTarget = SourceTarget.Target)
         {
             var response = await _clientWrapper.GetSlotsHttp(start, end, sourceTarget);
-            var slots = _deserializer.Deserialize(response);
+            var mappedSlots = _mapper.Map(response);
 
-            return slots;
+            return mappedSlots;
         }
     }
 }

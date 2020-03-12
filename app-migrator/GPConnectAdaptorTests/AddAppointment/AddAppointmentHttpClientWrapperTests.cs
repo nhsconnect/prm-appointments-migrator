@@ -12,13 +12,17 @@ namespace GPConnectAdaptorTests.AddAppointment
     {
         private readonly HttpTest _httpTest;
         private readonly ITestOutputHelper _output;
-        private readonly string _expectedUri = "http://test.com/Appointment";
+        //private readonly string _expectedUri = "http://test.com/Appointment";
+        private readonly IServiceConfig _serviceConfig;
 
 
         public AddAppointmentHttpClientWrapperTests(ITestOutputHelper output)
         {
             _output = output;
             _httpTest = new HttpTest();
+            _serviceConfig = Substitute.For<IServiceConfig>();
+            _serviceConfig.GetSourceDomain().Returns("http://test.com");
+            _serviceConfig.GetTargetDomain().Returns("http://test.com");
         }
         
         [Fact]
@@ -29,7 +33,7 @@ namespace GPConnectAdaptorTests.AddAppointment
             var mockRequestBody = "{\"hello\" : \"hello\"}";
             _httpTest.RespondWith("{\"aha!\" : \"aha!\"}");
         
-            var sut = new AddAppointmentHttpClientWrapper(mockTokenGenerator, true);
+            var sut = new AddAppointmentHttpClientWrapper(mockTokenGenerator, _serviceConfig);
         
             var result = await sut.PostAsync(mockRequestBody);
         

@@ -15,116 +15,51 @@ namespace GPConnectAdaptor
 {
     public class MigrationOrchestrator : IOrchestrator
     {
-        private readonly Slots.ISlotClient _slotClient;
         private readonly IAddAppointmentClient _addAppointmentClient;
         private readonly IPatientLookup _patientLookup;
         private readonly IReadAppointmentsClient _readAppointmentsClient;
+        private readonly ISlotRetriever _slotRetriever;
 
-        public MigrationOrchestrator(Slots.ISlotClient slotClient, IAddAppointmentClient addAppointmentClient, IPatientLookup patientLookup, IReadAppointmentsClient readAppointmentsClient)
+        public MigrationOrchestrator(IAddAppointmentClient addAppointmentClient,
+            IPatientLookup patientLookup,
+            IReadAppointmentsClient readAppointmentsClient,
+            ISlotRetriever slotRetriever)
         {
-            _slotClient = slotClient;
             _addAppointmentClient = addAppointmentClient;
             _patientLookup = patientLookup;
             _readAppointmentsClient = readAppointmentsClient;
+            _slotRetriever = slotRetriever;
         }
         
-        public async Task<AppointmentBookedModel> AddAppointment(AddAppointmentCriteria criteria, SourceTarget sourceTarget = SourceTarget.Target)
+        public async Task<AppointmentBookedModel> AddAppointment(SlotModel slot,
+            string patientId,
+            SourceTarget sourceTarget = SourceTarget.Target)
         {
-            if (!_patientLookup.IsInitialized())
-            {
-                await _patientLookup.Initialize();
-            }
-            
+            await InitialisePatientLookup();
+
             try
             {
-                return await _addAppointmentClient.AddAppointment(
-                    criteria.SlotReference,
-                    criteria.PatientId,
-                    criteria.LocationId,
-                    criteria.Start, 
-                    criteria.End,
-                    sourceTarget,
-                    _patientLookup);
+                return await _addAppointmentClient.AddAppointment(slot, patientId, sourceTarget, _patientLookup);
             }
             catch (Exception e)
             {
                 throw new Exception($"Got Slots, but failed to book appointment. Returned with '{e.Message}'");
             }
-            
+        }
+
+        public async Task<SlotModel> GetSlotInfo(Appointment sourceAppointment, SourceTarget sourceTarget = SourceTarget.Target)
+        {
+            return await _slotRetriever.RetrieveSlotFromTarget(sourceAppointment, sourceTarget);
         }
         
-        public async Task<AddAppointmentCriteria> GetSlotInfo(Appointment sourceAppointment, SourceTarget sourceTarget = SourceTarget.Target)
+        public async Task<SlotModel> GetSlotInfo(BookAppointmentModel model, SourceTarget sourceTarget = SourceTarget.Target)
         {
-            if (!_patientLookup.IsInitialized())
-            {
-                await _patientLookup.Initialize();
-            }
-            
-            SlotResponse slots;
-            Resource slot;
-
-            try
-            {
-                slots =  await _slotClient.GetSlots(sourceAppointment.Start, sourceAppointment.End, sourceTarget);
-                slot = FindSlot(sourceAppointment, slots);
-            }
-            catch (ArgumentNullException e)
-            { 
-                throw new Exception("No Slots found for this time");
-            }
-
-            var scheduleId = slot.schedule.reference.Substring(9); 
-            var locationId = GetLocationId(slots, scheduleId);
-
-            return new AddAppointmentCriteria()
-            {
-                PatientId = sourceAppointment.PatientId.ToString(),
-                LocationId = locationId,
-                SlotReference = slot.id,
-                Start = slot.start ?? new DateTime(),
-                End = slot.end ?? new DateTime()
-            };
-        }
-        
-        public async Task<AddAppointmentCriteria> GetSlotInfo(BookAppointmentModel model, SourceTarget sourceTarget = SourceTarget.Target)
-        {
-            if (!_patientLookup.IsInitialized())
-            {
-                await _patientLookup.Initialize();
-            }
-            
-            SlotResponse slots;
-            Resource slot;
-
-            try
-            {
-                slots =  await _slotClient.GetSlots(model.Start, model.End, sourceTarget);
-                slot = FindSlot(model, slots);
-            }
-            catch (Exception e)
-            { 
-                throw new Exception("No Slots found for this time");
-            }
-
-            var scheduleId = slot.schedule.reference.Substring(9); 
-            var locationId = GetLocationId(slots, scheduleId);
-
-            return new AddAppointmentCriteria()
-            {
-                PatientId = model.PatientId.ToString(),
-                LocationId = locationId,
-                SlotReference = slot.id,
-                Start = slot.start ?? new DateTime(),
-                End = slot.end ?? new DateTime()
-            };
+            return await _slotRetriever.RetrieveSlotFromSource(model, SourceTarget.Source);
         }
         
         public async Task<List<Appointment>> GetFutureAppointments()
         {
-            if (!_patientLookup.IsInitialized())
-            {
-                await _patientLookup.Initialize();
-            }
+            await InitialisePatientLookup();
             
             var appointments = new List<Appointment>();
             var patientIds = _patientLookup.GetPatientIds();
@@ -140,62 +75,13 @@ namespace GPConnectAdaptor
 
             return appointments;
         }
-
-        public Task<List<AddAppointmentResponse>> TransferAppointments(List<Appointment> model)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static string GetLocationId(SlotResponse slots, string scheduleId)
-        {
-            var locationId = slots.entry.Select(e => e.resource)
-                .Where(r => r.resourceType == "Schedule")
-                .First(s => s.id == scheduleId)
-                .actor.First(a => a.reference.StartsWith("Location/")).reference;
-            return locationId;
-        }
-
-        private static Resource FindSlot(Appointment model, SlotResponse slots)
-        {
-            return slots.entry
-                .Select(e => e.resource)
-                .Where(r => r.resourceType == "Slot")
-                .First(s =>
-                    s.start >= model.Start.Subtract(new TimeSpan(0, 0, 1)) &&
-                    s.end <= model.End.AddSeconds(1));
-        }
         
-        private static Resource FindSlot(BookAppointmentModel model, SlotResponse slots)
+        private async Task InitialisePatientLookup()
         {
-            return slots.entry
-                .Select(e => e.resource)
-                .Where(r => r.resourceType == "Slot")
-                .First(s =>
-                    s.start >= model.Start.Subtract(new TimeSpan(0, 0, 1)) &&
-                    s.end <= model.End.AddSeconds(1));
+            if (!_patientLookup.IsInitialized())
+            {
+                await _patientLookup.Initialize();
+            }
         }
     }
-
-    public class AddAppointmentCriteria
-    {
-        public string SlotReference { get; set; }
-        public string PatientId { get; set; }
-        public string LocationId { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
-    }
-    
-    public class BookAppointmentModel
-    {
-        public string PatientId { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
-        
-        public string LocationId { get; set; }
-        
-        public string PractitionerId { get; set; }
-    }
-    
-
-
 }

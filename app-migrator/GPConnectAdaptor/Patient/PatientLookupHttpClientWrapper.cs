@@ -9,16 +9,18 @@ namespace GPConnectAdaptor.Patient
     public class PatientLookupHttpClientWrapper : IPatientLookupHttpClientWrapper
     {
         private readonly string _uri;
+        private readonly IServiceConfig _serviceConfig;
         private readonly string _traceId = "09a01679-2564-0fb4-5129-aecc81ea2706";
         private readonly string _consumerAsid = "200000000359";
         private readonly string _providerAsid = "918999198993";
         private readonly string _sdsInteractionId = "urn:nhs:names:services:gpconnect:fhir:rest:search:patient-1";
         private readonly IJwtTokenGenerator _tokenGenerator;
 
-        public PatientLookupHttpClientWrapper(IJwtTokenGenerator tokenGenerator, bool isTest = false)
+        public PatientLookupHttpClientWrapper(IJwtTokenGenerator tokenGenerator, IServiceConfig serviceConfig)
         {
             _tokenGenerator = tokenGenerator;
-            _uri =   ServiceConfig.GetSourceDomain(); //isTest ? "http://test.com" :
+            _serviceConfig = serviceConfig;
+            _uri = _serviceConfig.GetSourceDomain();
             FlurlHttp.ConfigureClient(_uri, cli =>
                 cli.Settings.HttpClientFactory = new UntrustedCertClientFactory());
         }

@@ -2,21 +2,25 @@ using System;
 
 namespace GPConnectAdaptor
 {
-    public static class ServiceConfig
+    public interface IServiceConfig
+    {
+        string GetTargetDomain();
+        string GetSourceDomain();
+    }
+    
+    public class ServiceConfig : IServiceConfig
     {
 
-        public static string GetTargetDomain()
+        public string GetTargetDomain()
         {
-            return "http://localhost:19192/gpconnect-demonstrator/v1/fhir";
-            // return "http://" + Environment.GetEnvironmentVariable("demonstrator2") + ":" +
-            //        Environment.GetEnvironmentVariable("demonstratorport2") + "/gpconnect-demonstrator/v1/fhir";
+            return "http://" + Environment.GetEnvironmentVariable("demonstrator2") + ":" +
+                   Environment.GetEnvironmentVariable("demonstratorport2") + "/gpconnect-demonstrator/v1/fhir";
         }
 
-        public static string GetSourceDomain()
+        public string GetSourceDomain()
         {
-            return "http://localhost:19191/gpconnect-demonstrator/v1/fhir";
-            // return "http://" + Environment.GetEnvironmentVariable("demonstrator1") + ":" +
-            //        Environment.GetEnvironmentVariable("demonstratorport1")+"/gpconnect-demonstrator/v1/fhir";
+            return "http://" + Environment.GetEnvironmentVariable("demonstrator1") + ":" +
+                   Environment.GetEnvironmentVariable("demonstratorport1")+"/gpconnect-demonstrator/v1/fhir";
         }
     }
 }

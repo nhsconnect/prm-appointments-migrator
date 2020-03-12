@@ -7,28 +7,30 @@ namespace GPConnectAdaptor.AddAppointment
 {
     public class AddAppointmentHttpClientWrapper : IAddAppointmentHttpClientWrapper
     {
-        private string _uri;
+        private readonly IServiceConfig _serviceConfig;
         private readonly string _traceId = "09a01679-2564-0fb4-5129-aecc81ea2706";
         private readonly string _consumerAsid = "200000000359";
         private readonly string _providerAsid = "918999198993";
         private readonly string _sdsInteractionId = "urn:nhs:names:services:gpconnect:fhir:rest:create:appointment-1";
         private readonly IJwtTokenGenerator _tokenGenerator;
 
-        public AddAppointmentHttpClientWrapper(IJwtTokenGenerator tokenGenerator, bool isTest = false)
+        public AddAppointmentHttpClientWrapper(IJwtTokenGenerator tokenGenerator, IServiceConfig serviceConfig)
         {
             _tokenGenerator = tokenGenerator;
-            _uri = ServiceConfig.GetTargetDomain(); //isTest ? "http://test.com" :;
-            FlurlHttp.ConfigureClient(_uri, cli =>
-                cli.Settings.HttpClientFactory = new UntrustedCertClientFactory());
+            _serviceConfig = serviceConfig;
+            
         }
 
         public async Task<string> PostAsync(string requestBody, SourceTarget sourceTarget = SourceTarget.Target)
         {
-            if (sourceTarget == SourceTarget.Source)
-            {
-                _uri = ServiceConfig.GetSourceDomain();
-            }
-            var temp = _uri
+            var uri = sourceTarget == SourceTarget.Source
+                ? _serviceConfig.GetSourceDomain()
+                : _serviceConfig.GetTargetDomain();
+            
+            FlurlHttp.ConfigureClient(uri, cli =>
+                cli.Settings.HttpClientFactory = new UntrustedCertClientFactory());
+            
+            var temp = uri
                 .AppendPathSegment("/Appointment")
                 .WithHeaders(new
                 {
