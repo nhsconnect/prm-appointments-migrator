@@ -22,7 +22,7 @@ Find future appointments in source system
 
     example response:
 
-        [
+  [
     {
         "patient": "Mike MEAKIN",
         "patientId": 2,
