@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GPConnectAdaptor.Models.ReadAppointments;
 using GPConnectAdaptor.Patient;
+using GPConnectAdaptor.Practitioner;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -10,14 +11,14 @@ namespace GPConnectAdaptor.ReadAppointments
 {
     public class AppointmentsResponseMapper : IAppointmentsResponseMapper
     {
-        public List<Appointment> Map(string response, IPatientLookup patientLookup)
+        public List<Appointment> Map(string response, IPatientLookup patientLookup, IPractitionerLookup practitionerLookup)
         {
             List<Appointment> appointments = new List<Appointment>();
             var parsed = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(response);
 
             try
             {
-                return parsed.Any(p => p.Key == "entry") ? AppendAppointments(appointments, parsed, patientLookup) : null;
+                return parsed.Any(p => p.Key == "entry") ? AppendAppointments(appointments, parsed, patientLookup, practitionerLookup) : null;
             }
             catch (Exception e)
             {
@@ -27,7 +28,7 @@ namespace GPConnectAdaptor.ReadAppointments
         }
 
         private List<Appointment> AppendAppointments(List<Appointment> appointments, Dictionary<string, dynamic> parsed,
-            IPatientLookup patientLookup)
+            IPatientLookup patientLookup, IPractitionerLookup practitionerLookup)
         {
             JArray arrayOfEntries = JsonConvert.DeserializeObject<JArray>(parsed["entry"].ToString());
                         
@@ -36,6 +37,8 @@ namespace GPConnectAdaptor.ReadAppointments
                             if (entry["resource"]["resourceType"].ToString() == "Appointment")
                             {
                                 var patient = patientLookup.GetPatientById(GetId(GetPatientResource(entry)));
+                                var practitioner =
+                                    practitionerLookup.GetPractitionerByLocalId(GetId(GetPractitionerResource(entry)).ToString());
                                 var appointment = new Appointment()
                                 {
                                     Description = entry["resource"]["description"].ToString(),
@@ -45,8 +48,8 @@ namespace GPConnectAdaptor.ReadAppointments
                                     LocationId = GetId(GetLocationResource(entry)),
                                     Patient = patient.Name,
                                     PatientId = patient.Id,
-                                    Practitioner = null,
-                                    PractitionerId = GetId(GetPractitionerResource(entry))
+                                    Practitioner = practitioner.Name,
+                                    PractitionerId = practitioner.Id
                                 };
                                 
                                 appointments.Add(appointment);

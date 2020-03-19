@@ -8,6 +8,7 @@ using GPConnectAdaptor.AddAppointment;
 using GPConnectAdaptor.Models.AddAppointment;
 using GPConnectAdaptor.Models.Slot;
 using GPConnectAdaptor.Patient;
+using GPConnectAdaptor.Practitioner;
 using GPConnectAdaptor.Slots;
 using Hl7.Fhir.Model;
 using Newtonsoft.Json;
@@ -83,7 +84,8 @@ namespace GPConnectAdaptorTests.AddAppointment
         
             var mockMapper = Substitute.For<IAppointmentBookedModelMapper>();
             IPatientLookup mockPatientLookup = Substitute.For<IPatientLookup>();
-            mockMapper.Map(_files["success"], mockPatientLookup).Returns(new AppointmentBookedModel()
+            IPractitionerLookup mockPractitionerLookup = Substitute.For<IPractitionerLookup>();
+            mockMapper.Map(_files["success"], mockPatientLookup, mockPractitionerLookup).Returns(new AppointmentBookedModel()
             {
                 Description = "yippee"
             });
@@ -98,7 +100,8 @@ namespace GPConnectAdaptorTests.AddAppointment
                     End = new DateTime(2020, 02, 05, 10, 20, 00)
                 }, "2",
                 SourceTarget.Target,
-                mockPatientLookup);
+                mockPatientLookup,
+                mockPractitionerLookup);
         
             result.Should().NotBeNull();
             result.Description.Should()
@@ -126,7 +129,9 @@ namespace GPConnectAdaptorTests.AddAppointment
         
             var mockMapper = Substitute.For<IAppointmentBookedModelMapper>();
             IPatientLookup mockPatientLookup = Substitute.For<IPatientLookup>();
-            mockMapper.Map(_files["fail"], mockPatientLookup).Returns(new AppointmentBookedModel()
+            IPractitionerLookup mockPractitionerLookup = Substitute.For<IPractitionerLookup>();
+            
+            mockMapper.Map(_files["fail"], mockPatientLookup, mockPractitionerLookup).Returns(new AppointmentBookedModel()
             {
                 Success = false,
                 Error = "ohnoes"
@@ -142,7 +147,8 @@ namespace GPConnectAdaptorTests.AddAppointment
                     End = new DateTime(2020, 02, 05, 10, 20, 00)
                 }, "2",
                 SourceTarget.Target,
-                mockPatientLookup);
+                mockPatientLookup,
+                mockPractitionerLookup);
         
             result.Should().NotBeNull();
             result.Success.Should().BeFalse();

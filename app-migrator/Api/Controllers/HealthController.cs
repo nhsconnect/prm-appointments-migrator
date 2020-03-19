@@ -23,8 +23,10 @@ namespace Api.Controllers
         {
             return new string[]
             {
-                Environment.GetEnvironmentVariable("demonstrator1"),
-                Environment.GetEnvironmentVariable("demonstrator2")
+                "http://" + Environment.GetEnvironmentVariable("demonstrator2") + ":" +
+                Environment.GetEnvironmentVariable("demonstratorport2") + "/gpconnect-demonstrator/v1/fhir",
+                "http://" + Environment.GetEnvironmentVariable("demonstrator1") + ":" +
+                Environment.GetEnvironmentVariable("demonstratorport1")+"/gpconnect-demonstrator/v1/fhir"
             };
         }
     }

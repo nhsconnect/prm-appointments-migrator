@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using GPConnectAdaptor.Models.ReadAppointments;
 using GPConnectAdaptor.Patient;
+using GPConnectAdaptor.Practitioner;
 
 namespace GPConnectAdaptor.ReadAppointments
 {
@@ -18,12 +19,12 @@ namespace GPConnectAdaptor.ReadAppointments
             _mapper = mapper;
         }
 
-        public async Task<List<Appointment>> GetFutureAppointments(int patientId, IPatientLookup patientLookup)
+        public async Task<List<Appointment>> GetFutureAppointments(int patientId, IPatientLookup patientLookup, IPractitionerLookup practitionerLookup)
         {
             var start = DateTime.Now;
             var end = start.AddDays(60);
             var response = await _httpClientWrapper.GetAsync(start, end, patientId);
-            return _mapper.Map(response, patientLookup);
+            return _mapper.Map(response, patientLookup, practitionerLookup);
         }
     }
 }

@@ -52,6 +52,8 @@
       <EmbeddedResource Include="TestData\ReadAppointmentsTestData\ReadAppointmentsResponseWith0Appointments.json" />
       <None Remove="TestData\ReadAppointmentsTestData\anothertest.json" />
       <EmbeddedResource Include="TestData\ReadAppointmentsTestData\anothertest.json" />
+      <None Remove="TestData\PractitionerTestData\PractitionerResponse.json" />
+      <EmbeddedResource Include="TestData\PractitionerTestData\PractitionerResponse.json" />
     </ItemGroup>
 
 </Project>

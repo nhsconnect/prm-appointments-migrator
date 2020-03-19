@@ -4,7 +4,9 @@ using System.Reflection;
 using FluentAssertions;
 using GPConnectAdaptor.AddAppointment;
 using GPConnectAdaptor.Models.Patient;
+using GPConnectAdaptor.Models.Practitioner;
 using GPConnectAdaptor.Patient;
+using GPConnectAdaptor.Practitioner;
 using Hl7.Fhir.Model;
 using NSubstitute;
 using Xunit;
@@ -22,12 +24,14 @@ namespace GPConnectAdaptorTests.AddAppointment
         private Dictionary<string, string> _filePaths;
         private readonly Dictionary<string, string> _files = new Dictionary<string, string>();
         private readonly IPatientLookup _mockPatientsLookup;
+        private readonly IPractitionerLookup _mockPractitionerLookup;
 
         public AppointmentBookedModelMapperTests()
         {
             PopulatePaths();
             PopulateResponses();
             _mockPatientsLookup = Substitute.For<IPatientLookup>();
+            _mockPractitionerLookup = Substitute.For<IPractitionerLookup>();
         }
         
         [Fact]
@@ -40,7 +44,10 @@ namespace GPConnectAdaptorTests.AddAppointment
             _mockPatientsLookup.GetPatientById(2).Returns(new PatientModel()
                 {Id = 2, Name = "Wibble WOBBLE", NhsNumber = 999999999});
 
-            var result = sut.Map(response, _mockPatientsLookup);
+            _mockPractitionerLookup.GetPractitionerByLocalId("1")
+                .Returns(new PractitionerModel() {Id = 1, Name = "Practitioner One"});
+
+            var result = sut.Map(response, _mockPatientsLookup, _mockPractitionerLookup);
 
             result.Should().NotBeNull();
             result.Patient.Should().BeEquivalentTo("Wibble WOBBLE");
@@ -55,7 +62,7 @@ namespace GPConnectAdaptorTests.AddAppointment
             var sut = new AppointmentBookedModelMapper();
             
             
-            var result = sut.Map(response, _mockPatientsLookup);
+            var result = sut.Map(response, _mockPatientsLookup, _mockPractitionerLookup);
 
             result.Should().NotBeNull();
 

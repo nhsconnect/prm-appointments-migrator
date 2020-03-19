@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using GPConnectAdaptor;
 using GPConnectAdaptor.AddAppointment;
 using GPConnectAdaptor.Patient;
+using GPConnectAdaptor.Practitioner;
 using GPConnectAdaptor.ReadAppointments;
 using GPConnectAdaptor.Slots;
 using Microsoft.AspNetCore.Builder;
@@ -37,7 +38,7 @@ namespace Api
             // serviceconfig
             services.AddScoped<IServiceConfig, ServiceConfig>();
 
-                // common
+            // common
             services.AddScoped<IOrchestrator, MigrationOrchestrator>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<ITokenPayloadBuilder, TokenPayloadBuilder>();
@@ -61,6 +62,11 @@ namespace Api
             services.AddScoped<IPatientLookupHttpClientWrapper, PatientLookupHttpClientWrapper>();
             services.AddScoped<IPatientLookup, PatientLookup>();
             services.AddScoped<IPatientLookupClient, PatientLookupClient>();
+            
+            // practitioner
+            services.AddScoped<IPractitionerLookupHttpClientWrapper, PractitionerLookupHttpClientWrapper>();
+            services.AddScoped<IPractitionerLookup, PractitionerLookup>();
+            services.AddScoped<IPractitionerLookupClient, PractitionerLookupClient>();
             
             // read appointment
             services.AddScoped<IReadAppointmentsHttpClientWrapper, ReadAppointmentsHttpClientWrapper>();

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using GPConnectAdaptor.Models.AddAppointment;
 using GPConnectAdaptor.Models.Slot;
 using GPConnectAdaptor.Patient;
+using GPConnectAdaptor.Practitioner;
 using GPConnectAdaptor.Slots;
 using Newtonsoft.Json;
 
@@ -27,13 +28,14 @@ namespace GPConnectAdaptor.AddAppointment
         public async Task<AppointmentBookedModel> AddAppointment(SlotModel slot,
             string patientRef,
             SourceTarget sourceTarget,
-            IPatientLookup patientLookup)
+            IPatientLookup patientLookup,
+            IPractitionerLookup practitionerLookup)
         {
             var request = _addAppointmentRequestBuilder.Build(slot.Id, patientRef, slot.LocationId, slot.Start.ToLocalTime(), slot.End.ToLocalTime());
             var appointmentRequestBody = JsonConvert.SerializeObject(request);
             var appointmentResponseBody = await _httpClientWrapper.PostAsync(appointmentRequestBody, sourceTarget);
             
-            var appointment = _appointmentBookedModelMapper.Map(appointmentResponseBody, patientLookup);
+            var appointment = _appointmentBookedModelMapper.Map(appointmentResponseBody, patientLookup, practitionerLookup);
 
             return appointment;
         }

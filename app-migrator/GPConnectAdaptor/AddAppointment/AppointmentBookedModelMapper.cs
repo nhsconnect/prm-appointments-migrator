@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GPConnectAdaptor.Models.AddAppointment;
 using GPConnectAdaptor.Patient;
+using GPConnectAdaptor.Practitioner;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -10,7 +11,7 @@ namespace GPConnectAdaptor.AddAppointment
 {
     public class AppointmentBookedModelMapper : IAppointmentBookedModelMapper
     {
-        public AppointmentBookedModel Map(string response, IPatientLookup patientLookup)
+        public AppointmentBookedModel Map(string response, IPatientLookup patientLookup, IPractitionerLookup practitionerLookup)
         {
             try
             {
@@ -19,14 +20,15 @@ namespace GPConnectAdaptor.AddAppointment
                 JArray participants = parsed["participant"];
 
                 var patientId = GetId(GetPatientResource(participants));
+                var practitionerId = GetId(GetPractitionerResource(participants));
                 return new AppointmentBookedModel()
                 {
                     PatientId = patientId,
                     Patient = patientLookup.GetPatientById(patientId).Name,
                     Location = null,
                     LocationId = GetId(GetLocationResource(participants)),
-                    Practitioner = null,
-                    PractitionerId = GetId(GetPractitionerResource(participants)),
+                    Practitioner = practitionerLookup.GetPractitionerByLocalId(practitionerId.ToString()).Name,
+                    PractitionerId = practitionerId,
                     Start = DateTime.Parse(parsed["start"].ToString()),
                     End = DateTime.Parse(parsed["end"].ToString()),
                     Description = parsed["description"].ToString(),

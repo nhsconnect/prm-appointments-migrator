@@ -7,6 +7,7 @@ using GPConnectAdaptor.Models.AddAppointment;
 using GPConnectAdaptor.Models.ReadAppointments;
 using GPConnectAdaptor.Models.Slot;
 using GPConnectAdaptor.Patient;
+using GPConnectAdaptor.Practitioner;
 using GPConnectAdaptor.ReadAppointments;
 using GPConnectAdaptor.Slots;
 using Newtonsoft.Json;
@@ -17,29 +18,33 @@ namespace GPConnectAdaptor
     {
         private readonly IAddAppointmentClient _addAppointmentClient;
         private readonly IPatientLookup _patientLookup;
+        private readonly IPractitionerLookup _practitionerLookup;
         private readonly IReadAppointmentsClient _readAppointmentsClient;
         private readonly ISlotRetriever _slotRetriever;
 
         public MigrationOrchestrator(IAddAppointmentClient addAppointmentClient,
             IPatientLookup patientLookup,
             IReadAppointmentsClient readAppointmentsClient,
-            ISlotRetriever slotRetriever)
+            ISlotRetriever slotRetriever, 
+            IPractitionerLookup practitionerLookup)
         {
             _addAppointmentClient = addAppointmentClient;
             _patientLookup = patientLookup;
             _readAppointmentsClient = readAppointmentsClient;
             _slotRetriever = slotRetriever;
+            _practitionerLookup = practitionerLookup;
         }
         
-        public async Task<AppointmentBookedModel> AddAppointment(SlotModel slot,
+        public async Task<AppointmentBookedModel> AddAppointment(
+            SlotModel slot,
             string patientId,
             SourceTarget sourceTarget = SourceTarget.Target)
         {
-            await InitialisePatientLookup();
+            await InitialiseLookups();
 
             try
             {
-                return await _addAppointmentClient.AddAppointment(slot, patientId, sourceTarget, _patientLookup);
+                return await _addAppointmentClient.AddAppointment(slot, patientId, sourceTarget, _patientLookup, _practitionerLookup);
             }
             catch (Exception e)
             {
@@ -59,14 +64,14 @@ namespace GPConnectAdaptor
         
         public async Task<List<Appointment>> GetFutureAppointments()
         {
-            await InitialisePatientLookup();
-            
+            await InitialiseLookups();
+
             var appointments = new List<Appointment>();
             var patientIds = _patientLookup.GetPatientIds();
 
             foreach (var patientId in patientIds)
             {
-                var appointmentsToAdd = await _readAppointmentsClient.GetFutureAppointments(patientId, _patientLookup);
+                var appointmentsToAdd = await _readAppointmentsClient.GetFutureAppointments(patientId, _patientLookup, _practitionerLookup);
                 if (appointmentsToAdd != null && appointmentsToAdd.Count > 0)
                 {
                     appointments.AddRange(appointmentsToAdd);
@@ -76,11 +81,16 @@ namespace GPConnectAdaptor
             return appointments;
         }
         
-        private async Task InitialisePatientLookup()
+        private async Task InitialiseLookups()
         {
             if (!_patientLookup.IsInitialized())
             {
                 await _patientLookup.Initialize();
+            }
+
+            if (!_practitionerLookup.IsInitialized())
+            {
+                await _practitionerLookup.Initialize();
             }
         }
     }

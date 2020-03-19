@@ -26,8 +26,6 @@ namespace GPConnectAdaptor.Patient
                 var patientJson = arrayOfEntries
                     .First(e => e["resource"]["resourceType"].ToString() == "Patient");
 
-                //return Int32.Parse(patientIdObject);
-                
                 return new PatientModel()
                 {
                     Id = Int32.Parse(patientJson["resource"]["id"].ToString()),
