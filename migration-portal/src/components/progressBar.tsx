@@ -43,7 +43,7 @@ export default ({ nextPage }) => {
                 history.push(`/${publicPath}/${nextPage}`);
             }
         }, 500);
-    }, []);
+    });
 
     return (
         <div className={progressBg}>
