@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/prm-appointments-migrator/static/css/main.8e091da3.chunk.css",
+    "main.js": "/prm-appointments-migrator/static/js/main.0b336f58.chunk.js",
+    "main.js.map": "/prm-appointments-migrator/static/js/main.0b336f58.chunk.js.map",
+    "runtime-main.js": "/prm-appointments-migrator/static/js/runtime-main.abcba994.js",
+    "runtime-main.js.map": "/prm-appointments-migrator/static/js/runtime-main.abcba994.js.map",
+    "static/js/2.05bef57a.chunk.js": "/prm-appointments-migrator/static/js/2.05bef57a.chunk.js",
+    "static/js/2.05bef57a.chunk.js.map": "/prm-appointments-migrator/static/js/2.05bef57a.chunk.js.map",
+    "index.html": "/prm-appointments-migrator/index.html",
+    "precache-manifest.a0764c68f5f0f1a2c0e86623f6570068.js": "/prm-appointments-migrator/precache-manifest.a0764c68f5f0f1a2c0e86623f6570068.js",
+    "service-worker.js": "/prm-appointments-migrator/service-worker.js",
+    "static/css/main.8e091da3.chunk.css.map": "/prm-appointments-migrator/static/css/main.8e091da3.chunk.css.map",
+    "static/js/2.05bef57a.chunk.js.LICENSE.txt": "/prm-appointments-migrator/static/js/2.05bef57a.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.abcba994.js",
+    "static/js/2.05bef57a.chunk.js",
+    "static/css/main.8e091da3.chunk.css",
+    "static/js/main.0b336f58.chunk.js"
+  ]
+}
